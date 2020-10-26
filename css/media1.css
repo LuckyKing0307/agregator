@@ -1,0 +1,319 @@
+.head_btns{
+	display: none !important;
+}
+.hiden{
+	display: none;
+}
+@media(max-width: 600px){
+	header{
+		padding-top: 20px !important;
+		padding-bottom: 20px !important; 
+		height: auto !important;
+	}
+	.naw_wrapper{
+		justify-content: space-between;
+	}
+	.logo_wrapper{
+		width: auto;
+	}
+	.nav>.container>.row{
+	flex-wrap: nowrap;
+	}
+	.head_btns{
+		width: 20%;
+		display: flex !important;
+		justify-content: space-between;
+		width: auto;
+	}
+	.dn{
+		display: none !important;
+	}
+	.hiden{
+		display: block;
+	}
+	.ads{
+		color: #4078CD;
+	}
+	.title{
+		font-size: 35px;
+		margin-top: 80px;
+		margin-bottom: 40px;
+		line-height: 48px;
+	}
+	.head_btn{
+		width: 90%;
+		margin: 0 auto;
+		display: block;
+	}
+	.header_wrapper{
+		margin-bottom: 5px;
+	}
+	.head_title{
+		margin-top: 70px;
+	}
+	.header_h1{
+		font-size: 35px;
+		line-height: 48px;
+		margin-left: 10px;
+	}
+	.count_input,.count_btn{
+		border-radius: 24px;
+		font-size: 35px;
+		width: 95%;
+		margin: 0 auto;
+		margin-top: 10px;
+	}
+	.count_btn{
+		height: auto;
+		padding: 12px;
+		font-size: 18px;
+	}
+	section{
+		height: auto !important;
+	}
+	.info_head{
+		font-size: 32px;
+	}
+	.info-img>img{
+		width: 100%;
+	}
+	.row_cash_wrapper{
+		flex-direction: column-reverse;
+	}
+	.cash_car>img{
+		width: 100%;
+	}
+	.cash_btn{
+		width: 98%;	
+		border: 1px solid #4078CD;
+		border-radius: 8px;
+	}
+	.servise_cont{
+		text-align: center;
+	}
+	.servise_items{
+		margin-bottom: 24px;
+	}
+	.collection_items{
+		flex-direction: column-reverse;
+	}
+	.footer_menu{
+		margin-top: 10px;
+		flex-direction: column-reverse;
+	}
+	.footer{
+		padding-top: 155px;
+	}
+	.navigation{
+		margin-top: 0;
+		margin-bottom: 0;
+	}
+	.contacts{
+		display: block;
+	}
+	.contacts>img{
+		margin-bottom: 10px;
+	}
+	.navigation_li{
+		font-size: 15px;
+	}
+	.calc_select{
+		margin-top: 32px;
+	}
+	.thirty_one{
+		display: none;
+	}
+	.col-md-2.disable{
+		display: none;
+	}
+	.sity_wrap{
+		padding: 15px;
+	}
+	.dates>input{
+		width: 104px;
+		font-size: 9px;
+	}
+	.checker{
+		display: block;
+		width: 100%;
+	}
+	.checkbox{
+		width: 41px;
+		height: 22px;
+		margin-top: 11px;
+		margin-bottom: 14px;
+		margin-left: -11px;
+		transform: rotate(90deg);
+	}
+	.calc_avto{
+		flex-direction: column;
+	}
+	.fio{
+		width: 100%;
+		margin-top: 0;
+	}
+	.fio>input{
+		margin-top: 0;
+	}
+	.w80{
+		width: 100%;
+	}
+	.calc_select.fio{
+		margin-top: 10px;
+	}
+	.data_stage1{
+		margin-top: 0;
+	}
+	.strax_item{
+		background-color: #F9F9F9;
+		flex-direction: column;
+		align-items: flex-start;
+		padding: 40px 5px;
+		margin-top: 24px;
+	}
+	.name,.reyr,.stavka{
+		text-align: left;
+		display: flex;
+		width: 100%;
+		padding: 12px 20px ;
+	}
+	.detail{
+		width: 90%;
+		margin: 0 auto; 
+	}
+	.stavka{
+		justify-content: space-between;
+	}
+	.stavka>span{
+		font-weight: 500;
+		font-size: 18px;
+		line-height: 32px;
+		color: #B7B7B7;
+	}
+	.star{
+		width: 24px;
+		height: 24px;
+	}
+	.offer{
+		width: 90%;
+		margin: 0 auto;
+	}
+	.send{
+		width: 100%;
+		display: flex;
+	}
+	.profile_mob{
+		display: flex;
+		width: 100%;
+		justify-content: space-between;
+	}
+	.profile_mob>li{
+		padding-bottom: 8px;
+	}
+	.profile_mob>li:hover{
+		border-bottom: 2px solid #4078CD;
+	}
+	svg:hover>ellipse,svg:hover>path{
+		fill: #4078CD;
+	}
+	.user_inputs{
+		flex-direction: column-reverse;
+	}
+	.user_information{
+		margin: 0 auto;
+	}
+	.agent{
+		margin-top: 20px;
+	}
+	.jcb{
+		margin-right: 0 !important;
+		margin: 0 auto;
+	}
+	.checker1,.agent_button{
+		height: 40px;
+		margin-top: 0 !important;
+	}
+	.head_form{
+		width: 90%;
+		flex-direction: column;
+		margin: 0 auto;
+		align-items: flex-start;
+		margin-top: 5px;
+	}
+	.lab{
+		margin-left: 0;
+		margin-top: 5px;
+		margin-bottom: 5px;
+	}
+	.calc_avto{
+		width: 90%;
+		margin: 0 auto;
+		margin-top: 20px;
+		
+	}
+	.calc_avto6,.n_1{
+		width: 100%;
+	}
+	.btn1{
+		width: 90%;
+		margin: 0 auto;
+		justify-content: center;
+	}
+ 	.footer{
+ 		margin-top: 10px;
+ 	}
+ 	.tips{
+ 		width: 90%;
+ 		margin: 0 auto;
+ 		flex-wrap: wrap;
+ 	}
+ 	.end_line{
+ 		display: none;
+ 	}
+ 	.user_info{
+ 		margin-left: 0;
+ 	}
+ 	.warrning{
+ 		align-items: flex-start;
+ 		width: 90%;
+ 		margin: 0 auto;
+ 		padding: 15px 24px;
+ 	}
+ 	.warrning>img{
+ 		width: 7px;
+ 		margin-top: 5px;
+ 	}
+ 	.warr_text{
+ 		font-weight: 300;
+ 		line-height: 30px;
+ 		font-size: 16px;
+
+ 	}
+ 	.strax_info{
+ 		padding: 24px 10px;
+ 		
+ 	}
+ 	.p_price{
+ 		font-size: 26px;
+ 	}
+	.cars{
+		flex-direction: column;
+	}
+	.car_types_text{
+		margin-top: 10px;
+		justify-content: flex-start;
+		color: #808080;
+		font-size: 14px;
+	}
+	.clear_inp{
+		margin-top: 10px;
+		justify-content: flex-start;
+	}
+	.w20{
+		width: 33%;
+
+	}
+	.w70{
+		width: 60%;
+	}
+}
