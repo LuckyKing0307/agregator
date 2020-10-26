@@ -17,7 +17,7 @@
 		if (mysqli_num_rows($data_search)) {
 			echo "ТАКОЙ АККАУН ЕСТЬ";
 		}else{
-			$query = "INSERT INTO `user`(`login`, `password`, `role`, `phone`,`car`) VALUES ('$login','$pass','4','$phone','$car')";
+			$query = "INSERT INTO `user`(`login`, `password`, `role`, `phone`,`car`) VALUES ('$login','$pass',4,'$phone','$car')";
 			$data = mysqli_query($bd,$query);
 			setcookie('login',$login,time()+(60*60*24*30),'/');
             header('Location: ../index.php');
@@ -121,6 +121,12 @@
 			.strax_list{
 				margin-top: 40px;
 			}
+			.checker1{
+				width: 70%;
+			}
+			.phone{
+				width: 100%;
+			}
 		}
 	</style>
 	<section class="head_title">
@@ -155,11 +161,6 @@
 
 	                    <label for="agent" class="fio with_label" style="margin-top: 20px;"><span class="aic"  onclick="Agent()" style="margin-top: -10px;"><span class="check jcc aic" ><img src="../img/galc.png" class="checker_img checker_img1 none" alt=""></span><span>Я агент</span></span></label>
 	                    <input type="checkbox" id="agent" name="agent" hidden>
-	                  </div>
-	                  <div class="clear">
-	                    <div class="clear_btn_1 red clear_all" data-clear="1">
-	                      <img src="img/clear.svg" alt="">
-	                    </div>
 	                  </div>
 	                </div>
 	                <input type="submit" name="reg" class="form_btn buttons" disabled>

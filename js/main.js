@@ -10,13 +10,15 @@ list.addEventListener('click',e=>{
 			user_info.classList.add('is_active');
 			default1.removeAttribute('disabled');
 });
-list1.addEventListener('click',e=>{
+if (list1) {
+	list1.addEventListener('click',e=>{
 			e.preventDefault();
 			list1.style.display = 'none'
 			list.style.display = 'block'
 			user_info.classList.remove('is_active');
 			default1.setAttribute("disabled", "");
 });
+}
 }
 function back(){
 	window.history.back();

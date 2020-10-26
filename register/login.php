@@ -1,4 +1,4 @@
-<?php 
+<!-- <?php 
     require('../bd.php');
     $query_s = "SELECT * FROM `sity`";
     $data_s = mysqli_query($bd,$query_s);
@@ -27,7 +27,7 @@
         }
     }
  ?>
-
+ -->
 <?php 
     require('../bd.php');
     $query_s = "SELECT * FROM `sity`";

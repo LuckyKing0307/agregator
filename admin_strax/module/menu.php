@@ -1,8 +1,8 @@
 <?php ?>
 <ul>
 	<?php 
-	// $link = "http://localhost/osago/";
-  $link = "http://goldpreis.ru/"
+	$link = 	 "http://localhost/osago/";
+  // $link = "http://goldpreis.ru/"
 		if ($_COOKIE['admin']) {
 		}
 		else{

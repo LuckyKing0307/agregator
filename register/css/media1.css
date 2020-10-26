@@ -316,16 +316,4 @@
 	.w70{
 		width: 60%;
 	}
-	.blue_price{
-		flex-direction: column;
-		padding: 17px;
-		background-color: #F9F9F9;
-		border-radius: 26px;
-	}
-	.blue_price>p,.blue_price>button{
-		width: 100%;
-		display: flex;
-		justify-content: space-between;
-		margin-top: 10px;
-	}
 }

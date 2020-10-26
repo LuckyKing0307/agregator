@@ -1,6 +1,5 @@
 <?php
 	require('bd.php');
-	
 	$sity = $_POST['sity'];
 	$car_type = $_POST['car_type'];
     $query = "SELECT * FROM `sity` WHERE id=".$sity;
@@ -144,6 +143,7 @@
  		margin-top: 50px;
  	}
  </style>
+ <input type="text" hidden name="post" id="post" value='<?php echo json_encode($_POST)?>'>
 	<section class="head_title">
 			<div class=" container">
 				<div class="row">
@@ -236,7 +236,7 @@
 				 			$js = json_decode($cat['sity_tb'],true);
 					 ?>
 				            <?php if ($cat['top']==1){ ?>
-				            	<div class="strax_item recomend" data-price="<?php echo ($all=$js[$sity]*$summ*$cat['koef_bt']+$cat['koef_bt_summ']); ?>" data-reyt="<?php echo $cat['reyt'] ?>">
+				            	<div class="strax_item recomend" data-id='<?php echo $cat['id']?>' data-file="index.php" data-price="<?php echo ($all=$js[$sity]*$summ*$cat['koef_bt']+$cat['koef_bt_summ']); ?>" data-reyt="<?php echo $cat['reyt'] ?>">
 				        	<?php }else{ ?>
 				        		<div class="strax_item " data-price="<?php echo ($all=$js[$sity]*$summ*$cat['koef_bt']+$cat['koef_bt_summ']); ?>" data-reyt="<?php echo $cat['reyt'] ?>">
 				            <?php } ?>
@@ -261,9 +261,9 @@
 								</div>
 								<!-- <p class="stavka stavka_id" data-link="req/index.php" data-id="<?php  echo $cat['id'];?>"><span class="hiden">Покрытие: </span>400000р</p> -->
 								<!-- <p class="stavka dn"><?php echo ($js[$sity]."р"); ?></p> -->
-								<p class="stavka p<?php  echo $cat['id'];?>"><span class="hiden">Стоимость: </span> <?php echo (number_format($js[$sity]*$summ*$cat['koef_bt']+$cat['koef_bt_summ'],2, ',', ' ').' p.'); 
+								<p class="stavka p<?php  echo $cat['id'];?>"><span class="hiden">Стоимость: </span> <span id="<?php echo $cat['id']?>"><?php echo (number_format($js[$sity]*$summ*$cat['koef_bt']+$cat['koef_bt_summ'],2, ',', ' ').' p.'); 
 
-								?></p>
+								?></span></p>
 
 								<?php if(isset($_POST['agent_form'])){ ?>
 								<form action="register/end.php" action="GET" style="margin:0;">
@@ -273,7 +273,7 @@
 									<input type="text" name="id" hidden value="<?php  echo $cat['id'];?>">
 									<input type="text" name="def" hidden value="<?php  echo $def;?>">
 									<input type="text" name="sity" hidden value="<?php echo $js[$sity]?>">
-									<input type="text" name="price" hidden value="<?php echo $all?>">
+									<input type="text" name="price" hidden class="price_<?php  echo $cat['id'];?>" value="<?php echo $all?>">
 									<input type="text" hidden name="info" value='<?php echo json_encode($_POST) ?>'>
 									<input type="submit" value="Оформить" class="offer">
 								</form>
@@ -313,25 +313,21 @@
 				}
 			}
 		})
+
 	</script>
-<!-- 	<script>
-		window.addEventListener('load',()=>{
-			for (stavkas of stavka_id) {
-			}
-			function loadDoc(link,item) {
-			  var xhttp = new XMLHttpRequest();
-			  xhttp.onreadystatechange = function() {
-			    if (this.readyState == 4 && this.status == 200) {
-			    	const json = JSON.parse(this.responseText);
-			    	document.querySelector('.p2').innerText = json['prem'];
-			    	console.log(this.responseText)
-			    }
-			  };
-			  xhttp.open("GET", 'req/index.php', true);
-			  xhttp.send();
-			}
-			loadDoc();
-			    console.log(this.responseText);
-		});
-	</script> -->
 	<?php require('module/footer.php'); ?>
+	<script>
+		const date = document.querySelector('#post').value;
+		const strax_item = document.querySelector('.strax_item');
+		function getData(item){
+			$.get('req/'+item.dataset.file+'?data='+date,  // url
+		      function (data, textStatus, jqXHR) {  // success callback
+		      	console.log(data)
+		      	price =  JSON.parse(data);
+		      	$('#'+item.dataset.id).text(price['price']+' p.');
+		      	$('.price_'+item.dataset.id).val(price['price']);
+		         
+		    });
+		}
+		getData(strax_item)
+	</script>

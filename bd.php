@@ -6,3 +6,4 @@
                 $bd->set_charset('utf8');
                 $bd->set_charset('utf-8');
  ?>
+ 

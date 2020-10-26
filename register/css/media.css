@@ -1,0 +1,210 @@
+.head_btns{
+	display: none !important;
+}
+@media(max-width: 600px){
+	header{
+		padding-top: 20px !important;
+		padding-bottom: 50px !important; 
+		height: auto !important;
+	}
+	.menu_wrap{
+		display: flex;
+		justify-content: space-between;
+	}
+	.sity_wrap::after {
+	    position: absolute;
+	    content: 'Город регистрации собственника по паспорту';
+	    color: #B7B7B7;
+	    font-size: 12px;
+	    top: -1%;
+	}
+	.menu{
+		padding:9px 0;
+
+	}
+	.sity.one{
+		width: 100%;
+	}
+
+	.menu:hover{
+		border: none;
+	}
+	.naw_wrapper{
+		justify-content: space-between;
+	}
+	.logo_wrapper{
+		width: auto;
+	}
+	.head_btns{
+		display: block !important;
+		width: auto;
+	}
+	.dn{
+		display: none;
+	}
+	.title{
+		font-size: 35px;
+		margin-top: 80px;
+		margin-bottom: 40px;
+		line-height: 48px;
+	}
+	.car_checker{
+		padding: 0;
+	}
+	.dates>span{
+		width: 100%;
+		margin-top: 10px;
+	}
+	.dates>span>.calc_select{
+		margin-top: 5px;
+	}
+	.dates{
+		flex-direction: column;
+	}
+	.head_btn{
+		width: 90%;
+		margin: 0 auto;
+		display: block;
+	}
+	.count_input,.count_btn{
+		border-radius: 24px;
+		font-size: 35px;
+		width: 95%;
+		margin: 0 auto;
+		margin-top: 10px;
+	}
+	.count_btn{
+		height: auto;
+		padding: 12px;
+		font-size: 18px;
+	}
+	section{
+		height: auto !important;
+	}
+	.info_head{
+		font-size: 32px;
+	}
+	.info-img>img{
+		width: 100%;
+	}
+	.row_cash_wrapper{
+		flex-direction: column-reverse;
+	}
+	.cash_wrapper{
+		justify-content: center;
+
+	}
+	.line{
+		display: none;
+	}
+	.cash_car>img{
+		width: 100%;
+	}
+	.cash_btn{
+		width: 98%;	
+		border: 1px solid #4078CD;
+		border-radius: 8px;
+	}
+	.servise_cont{
+		text-align: center;
+	}
+	.servise_items{
+		margin-bottom: 24px;
+	}
+	.collection_items{
+		flex-direction: column-reverse;
+	}
+	.footer_menu{
+		margin-top: 10px;
+		flex-direction: column-reverse;
+	}
+	.footer{
+		padding-top: 155px;
+	}
+	.navigation{
+		margin-top: 0;
+		margin-bottom: 0;
+	}
+	.contacts{
+		display: block;
+	}
+	.contacts>img{
+		margin-bottom: 10px;
+	}
+	.navigation_li{
+		font-size: 15px;
+	}
+	.calc_select{
+		margin-top: 32px;
+	}
+	.thirty_one{
+		display: none;
+	}
+	.col-md-2.disable{
+		display: none;
+	}
+	.sity_wrap{
+		padding: 15px;
+	}
+	.date{
+		min-width: 100%;
+	}
+	.dates{
+		margin-top: 0px;
+		min-width: 100% !important;
+	}
+	.dates>input{
+		min-width: 100% !important;
+		font-size: 12px;
+		margin-top: 0 !important;
+	}
+	.checker{
+		display: block;
+		width: 100%;
+		margin-top: 20px;
+		margin-bottom: 20px;
+	}
+	.checkbox{
+		width: 41px;
+		height: 22px;
+		margin-top: 11px;
+		margin-bottom: 14px;
+		margin-left: -11px;
+		transform: rotate(90deg);
+	}
+	.calc_avto{
+		flex-direction: column;
+	}
+	.fio{
+		width: 100%;
+		margin-top: 0;
+	}
+	.fio>input{
+		margin-top: 0;
+	}
+	.w80{
+		width: 100%;
+	}
+	.calc_select.fio{
+		margin-top: 10px;
+	}
+	.calc_select{
+		width: 100%;
+	}
+	.data_stage1{
+		margin-top: 0;
+	}
+	.cash{
+		justify-content: flex-start;
+
+	}
+	.cash_title{
+		padding-left: 20px;
+	}
+	.srok{
+		margin-top: 20px;
+		font-weight: 500;
+		font-size: 18px;
+		line-height: 32px;
+	}
+}

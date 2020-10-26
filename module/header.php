@@ -8,9 +8,9 @@
   <meta charset="UTF-8">
   <title>Document</title>
 </head>
-<link rel="stylesheet" href="https://goldpreis.ru/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://goldpreis.ru/css/main.css">
-<link rel="stylesheet" href="https://goldpreis.ru/css/media1.css">
+<link rel="stylesheet" href="http://localhost/osago/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://localhost/osago/css/main.css">
+<link rel="stylesheet" href="http://localhost/osago/css/media1.css">
 <body class="body">
   <header class="header_menu">
     <div class="nav">
@@ -45,9 +45,9 @@
                 <div class="offset-md-3 col-md-3 dn" style="display: flex;justify-content: center;">
 	                  <button class="head-btn menu dn"><a href="https://goldpreis.ru/register/login.php"><?php echo $_COOKIE['login'] ?></a></button>
                   <?php } else{ ?>     
-                <div class="offset-md-3 col-md-3 justify-content-between menu_wrap">
-                    <button class="head-btn menu dn"><a href="register/">Войти</a></button>
-                    <button class="head-btn menu dn"><a href="register/">Регистрация</a></button>
+                <div class="offset-md-3 col-md-3 justify-content-between menu_wrap dn">
+                    <button class="head-btn menu "><a href="register/">Войти</a></button>
+                    <button class="head-btn menu "><a href="register/">Регистрация</a></button>
                 </div>
                   <?php } ?>
               </div>

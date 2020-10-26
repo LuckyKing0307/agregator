@@ -37,7 +37,7 @@
   </head>
   <body>
     <header class="header">
-          <div class="nav">
+          <div class="nav container">
             <div class="container container-my">
               <div class="row naw_wrapper">
                 <a href="index.php" class="col-md-2 logo_wrapper">
