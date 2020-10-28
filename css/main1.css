@@ -18,6 +18,14 @@ a{
 input,button{
 	outline: none !important;
 }
+a:active, a:focus { outline: none; }
+
+input, textarea,select {outline:none;}
+input:active, textarea:active {outline:none;}
+:focus {outline:none;}
+textarea {resize:none;}
+textarea {resize:vertical;}
+textarea {resize:horizontal;}
 .btn:focus {
      outline: 0; 
      box-shadow:none; 
@@ -39,6 +47,9 @@ input,button{
 }
 .nav-link-item:hover{
 	color: #e7e7e7;
+}
+input{
+	border: 10px solid black;
 }
 .collapsed>.item{
 	transform: rotateX(90deg);
@@ -226,7 +237,7 @@ input,button{
 .calc_select{
 	height: 40px;
 	border-radius: 16px;
-	border: none;
+	border: 1px solid black;
 	padding: 10px;
 	background-color: #F9F9F9;
 
@@ -259,8 +270,9 @@ input,button{
 	min-width: 43.9%;
 	background: #F9F9F9;
 	border-radius: 16px;
-	border: none;
 	height: 40px;
+	border: 1px solid black;
+	
 }
 .disable{
 	width: 45%;

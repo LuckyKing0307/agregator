@@ -1,15 +1,17 @@
 <?php
-
+if (isset($_GET['data'])) {
+  $info = json_decode($_GET['data']);
+}
 $curl = curl_init();
 $data = array(
   'key' => 'SECRET_KEY_DEMO',
-  'dateStart' => '2020-10-15',
+  'dateStart' => $info->reg_date,
   'period' => '12',
-  'owner[name]' => 'qwer',
-  'owner[lastname]' => 'qwer',
-  'owner[middlename]' => 'qwer',
-  'owner[birthday]' => '2011-08-10',
-  'owner[document][dateIssue]' => '2011-08-10',
+  'owner[name]' => 'Андрей',
+  'owner[lastname]' => 'Аюбджанов',
+  'owner[middlename]' => 'Жамшидов',
+  'owner[birthday]' => '2000-08-10',
+  'owner[document][dateIssue]' => '2020-08-10',
   'owner[document][issued]' => 'Алексинским РОВД Тульской области',
   'owner[document][number]' => '670963',
   'owner[document][series]' => '7004',
@@ -25,7 +27,7 @@ $data = array(
   'car[documents][vin]' => ''
 );
 if (isset($_GET['data'])) {
-  $info = json_decode($_GET['data']);
+  // $data['dateStart']=$info->car;
   $data['car[make]']=$info->car;
   $data['car[model]']=$info->carmodel;
   $data['car[dateStart]']=$info->reg_date;
@@ -33,20 +35,21 @@ if (isset($_GET['data'])) {
     $data['limitDrivers'] = '1';
     for ($i=0; $i < count($info->uname); $i++) { 
       $data['usagePeriod['.$i.'][dateStart]'] = $info->reg_date;
-      $data['usagePeriod['.$i.'][dateEnd]'] = '2021-10-14';
+      $data['usagePeriod['.$i.'][dateEnd]'] = '2021-10-26';
       $data['drivers['.$i.'][name]'] = $info->uname[$i];
       $data['drivers['.$i.'][lastname]'] = $info->usurname[$i];
       $data['drivers['.$i.'][middlename]'] = $info->ufathername[$i];
       $data['drivers['.$i.'][birthday]'] = $info->data[$i];
       $data['drivers['.$i.'][license][dateBeginDrive]'] = $info->stage[$i].'-08-10';
       $data['drivers['.$i.'][license][dateIssue]'] = $info->stage[$i].'-08-10';
-      $data['drivers['.$i.'][license][number]'] = $info->uvu[$i];
+      $data['drivers['.$i.'][license][number]'] = '77823';
       $data['drivers['.$i.'][license][series]'] = '7705';
     }
   }else{
     $data['limitDrivers'] = '0';
   }
 }
+print_r($data);
 // print_r($data);
 curl_setopt_array($curl, array(
   CURLOPT_URL => "https://osago.ads-soft.ru/calculate/?fullInformation=false",
@@ -61,6 +64,7 @@ curl_setopt_array($curl, array(
 ));
 
 $response = curl_exec($curl);
+print_r(json_decode($response));
 curl_close($curl);
 getPrice($response);
 // echo $response;
@@ -81,7 +85,7 @@ function getPrice($data){
 		));
 
 		$response = curl_exec($curl);
-
+    print_r(json_decode($response));
 		curl_close($curl);
     $array_item = array();
     $array_item['id'] = json_decode($response)->data->calculationId;

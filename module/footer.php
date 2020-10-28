@@ -25,7 +25,7 @@
       </div>
     </footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" crossorigin="anonymous"></script>
-    <script src="http://localhost/osago/js/bootstrap.min.js" crossorigin="anonymous"></script>
-    <script src="http://localhost/osago/js/main.js" defer></script>
+    <script src="https://localhost/osago/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    <script src="https://localhost/osago/js/main.js" defer></script>
   </body>
 </html>

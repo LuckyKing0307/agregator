@@ -1,6 +1,7 @@
 <?php 
 	require('bd.php');
 	require('module/header.php');
+	// print_r($_POST);
 ?>
 <style>
 	.with_label{
@@ -55,7 +56,7 @@
 			<div class=" container">
 				<div class="row">
 				<div class=" header_wrapper">
-					<p class="header_link"><span><a href="index.php" class="breads">Назад к оформлению/</a></span><span onclick="back()" class="breads">Список СК</span></p>
+					<p class="header_link"><span><a href="index.php" class="breads">Главная/</a></span><span class="breads"><a href="<?php echo $_GET['get']?>">Список Страховых</a>/</span><span class="breads" onclick="back()">Офармление</span></p>
 				</div>	
 			</div>
 		</div>

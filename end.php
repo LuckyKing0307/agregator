@@ -106,7 +106,7 @@
 			<div class=" container">
 				<div class="row">
 				<div class=" header_wrapper">
-					<p class="header_link"><span><a href="index.php" class="breads">Назад к оформлению/</a></span><span onclick="back()" class="breads">Список СК</span></p>
+					<p class="header_link"><span><a href="index.php" class="breads">Главная/</a></span><span onclick="back()" class="breads">Список Страховых/</span><span class="breads">Офармление</span></p>
 				</div>
 				<div class="col-md-12">
 					<div class="warrning">
@@ -283,10 +283,11 @@
         </div>
         <div class="container"><div class="head_form">Контакты</div>
 			<div class="calc_avto sec2_calc_avto row m-auto">
+	                <input type="text" name="get" hidden value="<?php echo $_GET['get']?>">
 	                <input type="text" class="calc_select fio" placeholder="Почта" name="email" style="width: 28%;">
                     <input type="text" class="calc_select fio phone" placeholder="Номер" name="number" style="width: 28%;">
                     <div class="checker_number" data-check="send" onclick="Mass()">
-                    	<img src="img/check_number.svg" alt="">
+                    	<img src="img/check_number.svg" alt="" class="grey">
                     </div>
 	                <input type="text" class="calc_select fio checker1" placeholder="Код Подтверждения" style="width: 28%;">
                     <div class="checker_number cansel" data-check="send" onclick="Check(this)">
@@ -306,7 +307,7 @@
 		</div>
 	</div>
 	<script>
-
+		console.log(window.history)
 		document.querySelector('.strah_user').addEventListener('click',()=>{
 		const strah_user = document.querySelector('#strah_user');
 		let n = document.querySelector('.n').value;
@@ -347,8 +348,10 @@
 		function Mass(item){	
 			phone.setAttribute('disabled', 'disabled');	
 			let phone_num = phone.value.replace('+','');
+			document.querySelector('.grey').src="img/check_number_grey.svg";
 			const xhttp =  new XMLHttpRequest();
 			xhttp.onreadystatechange = function(){
+
 				if (this.readyState==4 && this.status==200) {
 					if (JSON.parse(this.responseText)['status']=='OK') {
 						code = JSON.parse(this.responseText)['code'];

@@ -12,7 +12,7 @@
 	<div class="calc_avto calc_avto1 w80">
 		<label for="" class="fio with_label">Дата рождения:<input type="date" name="data[]" class="calc_select data_birth" data-stage="1" onchange="Date_change(this)" required></label>
 		<label for="" class="fio with_label">Серия и номер ВУ<input style="padding: 13px;" type="text" name="uvu[]" class="calc_select " required></label>
-		<label for="" class="fio with_label">Начало стажа<select name="stage[]" class="calc_select sity data_stage1" style="padding: 5px;">
+		<label for="" class="fio with_label">Начало стажа<select name="stage[]" class="calc_select sity data_stage1" style="padding: 5px;" disabled>
 		</select></label>
 	</div>
 	<div class="clear_0 ">
@@ -37,25 +37,12 @@
 		date.addEventListener('change',(e)=>{
 			let splite= date;
 			splite=splite.value.split('-');
-			splite[0]=parseInt(splite[0])+1;
-			splite[1]=parseInt(splite[1]);
-			splite[2]=parseInt(splite[2])-1;
-			let new_date = "";
-			for (let i = 0; i<splite.length;i++) {
-				if (splite[i]>2000) {
-					new_date+=splite[i];
-				}
-				else{
-					if (splite[i]>=10) {
-
-						new_date+="-"+splite[i]
-					}
-					else {
-						
-						new_date+="-0"+splite[i]
-					}
-				}
-			}
+			console.log(splite);
+			var D = new Date(parseInt(splite[0]),parseInt(splite[1]),parseInt(splite[2]));
+			D.setDate(D.getDate() - 1);
+			D.setFullYear(D.getFullYear() + 1);
+			console.log(D);
+			let new_date = D.getFullYear()+"-"+D.getMonth()+"-"+D.getDate();
 			date_dis.value = new_date;
 			new_date="";
 		})
@@ -233,9 +220,12 @@
 		            data_stage.innerHTML = '';
 		            console.log(date[0])
 		            if (date[0]>1900) {
+		            	data_stage.removeAttribute('disabled');
 		              console.log(date[0]);
 		              for (let i = parseInt(date[0])+16;i<=date1.getFullYear();i++) {
 		                data_stage.innerHTML +=`<option value="${i}">${i}</option>`
 		              }
+		            }else{
+		            	data_stage.setAttribute('disabled','disabled');
 		            }
 		}

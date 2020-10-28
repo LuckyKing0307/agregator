@@ -87,7 +87,7 @@
               <li class="navigation_li i3">Расчет</li>
             </ul>
           </nav>
-            <form action="result.php" method="post">
+            <form action="result.php" method="get">
               <div class="sec sec_1 is_used">
                 <div class="calc_avto row m-auto">
                   <select name="" disabled="" class="col-md-3 calc_select">
@@ -97,11 +97,11 @@
                     <option value="Личная">Личная</option>
                   </select>
                   <div class="car_checker col-md-2 ">
-                    <input type="text" name="car" class="calc_select car_input start_date" data-id="" onfocus="takeBase()" onkeyup="takeBaseList(this.value)" placeholder="Введите марку" required>
+                    <input type="text" name="car" class="calc_select car_input start_date" data-id="" onfocus="takeBase()" onkeyup="takeBaseList(this)" placeholder="Введите марку" required>
                     <div class="car_marks" ></div>
                   </div>
                   <div class="car_checker col-md-2 ">
-                    <input type="text" name="carmodel" class="calc_select mark_list start_date" disabled onkeyup="takeCarList(this.value)" placeholder="Укажите модель " required>
+                    <input type="text" name="carmodel" class="calc_select mark_list start_date" disabled onkeyup="takeCarList(this)" placeholder="Укажите модель " required>
                     <div class="car_list" ></div>
                   </div>
                   <select name="car_type" class="col-md-2 calc_select">
@@ -418,6 +418,7 @@
           var xhttp = new XMLHttpRequest();
           xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
+              car_list.innerHTML = '';
               car_marks.innerHTML = '';
               car_marks.style.zIndex = '1';
               mark = JSON.parse(this.responseText);
@@ -432,14 +433,17 @@
           xhttp.send();
       }
       function takeBaseList(mark){
+
         document.querySelector('.mark_list').value ='';
         document.querySelector('.mark_list').setAttribute('disabled', 'disabled');
+        mark.style.border = 'none';
         car_list.innerHTML = '';
         car_marks.innerHTML = '';
         car_marks.style.zIndex = '0';
           var xhttp = new XMLHttpRequest();
           xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
+              car_list.innerHTML = '';
               car_marks.style.zIndex = '1';
               mark = JSON.parse(this.responseText);
 
@@ -450,7 +454,7 @@
             else{
             }
           };
-            xhttp.open("GET", "req/takeBase.php?mark="+mark, true);
+            xhttp.open("GET", "req/takeBase.php?mark="+mark.value, true);
             xhttp.send();
 
         }
@@ -465,6 +469,7 @@
               document.querySelector('.mark_list').removeAttribute('disabled');
               car_list.style.zIndex = '1';
               mark = JSON.parse(this.responseText);
+              car_list.innerHTML = '';
               for (let i = 0; i < mark.length; i++) {
                 car_list.innerHTML+=`<div class="car_mark_items" data-id="${mark[i][0]}" data-name="${mark[i][1]}">${mark[i][1]}</div>`
               }
@@ -477,6 +482,7 @@
         }
         function takeCarList(item){
           car_list.innerHTML = '';
+          item.style.border = 'none';
           var xhttp = new XMLHttpRequest();
           xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
@@ -491,7 +497,7 @@
             else{
             }
           };
-          xhttp.open("GET", "req/takeBase.php?car_list="+item+"&search="+document.querySelector('.car_input').dataset.id, true);
+          xhttp.open("GET", "req/takeBase.php?car_list="+item.value+"&search="+document.querySelector('.car_input').dataset.id, true);
           xhttp.send();
         }
       car_marks.addEventListener('click',(e)=>{

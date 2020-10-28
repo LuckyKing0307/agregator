@@ -1,4 +1,4 @@
-<?php 
+<!-- <?php 
 	require 'bd.php';
 	$query = 'SELECT * FROM `car_mark`';
     $data = mysqli_query($bd,$query);
@@ -10,3 +10,4 @@
     	echo $mark.'<br>';
     }
 ?>
+ -->

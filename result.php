@@ -1,7 +1,8 @@
 <?php
 	require('bd.php');
-	$sity = $_POST['sity'];
-	$car_type = $_POST['car_type'];
+	$actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+	$sity = $_GET['sity'];
+	$car_type = $_GET['car_type'];
     $query = "SELECT * FROM `sity` WHERE id=".$sity;
     $data = mysqli_query($bd,$query);
     $row = mysqli_fetch_assoc($data);
@@ -19,22 +20,22 @@
 	$text = '';
 	$arr2 = array();
 	$count_name = 0;
-		$myDateTime = DateTime::createFromFormat('Y-m-d', $_POST['reg_date']);
+		$myDateTime = DateTime::createFromFormat('Y-m-d', $_GET['reg_date']);
 		$newDateString = $myDateTime->format('d.m.Y');
 	$old = $myDateTime->modify('-1 day')->modify('+1 year');
 	$oldDateString = $old->format('d.m.Y');
 	$reg_date =explode('.', $newDateString);
-	if (isset($_POST['default'])) {
+	if (isset($_GET['default'])) {
 		$def=1;
-		$name = $_POST['uname'];
+		$name = $_GET['uname'];
 		$year = 0;
 		$arr = array();
 		for ($i=0; $i <count($name) ; $i++) {
 			if ($name[$i]!=="") {
 			$count_name+=1;
 			$d = getdate();
-			$test_data_ar = explode('-', $_POST['data'][$i]);
-			$test_data_st = $_POST['stage'][$i];
+			$test_data_ar = explode('-', $_GET['data'][$i]);
+			$test_data_st = $_GET['stage'][$i];
 		    $stage = $d['year'] - $test_data_st;
 		    $data = $d['year'] - $test_data_ar[0];
 
@@ -143,12 +144,12 @@
  		margin-top: 50px;
  	}
  </style>
- <input type="text" hidden name="post" id="post" value='<?php echo json_encode($_POST)?>'>
+ <input type="text" hidden name="post" id="post" value='<?php echo json_encode($_GET)?>'>
 	<section class="head_title">
 			<div class=" container">
 				<div class="row">
 				<div class=" header_wrapper">
-					<p class=" header_link" onclick="back()"><span class="breads">Назад к оформлению</span></p>
+					<p class="header_link"><span><a href="index.php" class="breads">Главная/</a></span><span class="breads">Список Страховых</span></p>
 				</div>
 			</div>
 		</div>
@@ -193,29 +194,29 @@
 			        </div>
 					<div class="detail" style="padding:25px;">
 						<div class="detail_item">
-							<?php if (isset($_POST['uname'])) { ?>
-							<div class="h4 detail_title">Водители<span class="change_inform" onclick="back()"></span></div>
-							<?php for ($i=0; $i <count($_POST['uname']) ; $i++) { ?>
-								<p class="detail_text"><?php echo strtoupper ($_POST['usurname'][$i].' '. mb_substr($_POST['uname'][$i],0,1,'UTF-8').'.'.mb_substr($_POST['ufathername'][$i],0,1,'UTF-8').'.')?></p>
+							<?php if (isset($_GET['uname'])) { ?>
+							<div class="h4 detail_title">Водители</span></div>
+							<?php for ($i=0; $i <count($_GET['uname']) ; $i++) { ?>
+								<p class="detail_text"><?php echo strtoupper ($_GET['usurname'][$i].' '. mb_substr($_GET['uname'][$i],0,1,'UTF-8').'.'.mb_substr($_GET['ufathername'][$i],0,1,'UTF-8').'.')?></p>
 								<p class="detail_text">КБМ 1(класс 3)</p>
 							<?php }}else{ ?>
-							<div class="h4 detail_title">Собственник<span class="change_inform" onclick="back()"></span></div>
-							<p class="detail_text"><?php echo strtoupper($_POST['surname'].' '. mb_substr($_POST['name'],0,1,'UTF-8').'.'.mb_substr($_POST['fathername'],0,1,'UTF-8').'.') ?></p>
+							<div class="h4 detail_title">Собственник</span></div>
+							<p class="detail_text"><?php echo strtoupper($_GET['surname'].' '. mb_substr($_GET['name'],0,1,'UTF-8').'.'.mb_substr($_GET['fathername'],0,1,'UTF-8').'.') ?></p>
 							<p class="detail_text">КБМ 1(класс 3)</p>
 							<?php } ?>
 						</div>
 						<div class="detail_item">
 							<hr color="#B5B5B5">
-							<div class="h4 detail_title">Автомобиль<span class="change_inform" onclick="back()"></span></div>
-							<?php if (isset($_POST['year'])){ ?>
-							<p class="detail_text"><?php echo $_POST['car'].' '.$_POST['carmodel'].' '. $row_km['KmKoef'].' '.$_POST['year'].' г.'?></p>
+							<div class="h4 detail_title">Автомобиль</div>
+							<?php if (isset($_GET['year'])){ ?>
+							<p class="detail_text"><?php echo $_GET['car'].' '.$_GET['carmodel'].' '. $row_km['KmKoef'].' '.$_GET['year'].' г.'?></p>
 							<?php }else{ ?>
-							<p class="detail_text"><?php echo $_POST['car'].' '.$_POST['carmodel']?></p>
+							<p class="detail_text"><?php echo $_GET['car'].' '.$_GET['carmodel']?></p>
 							<?php } ?>
 						</div>
 						<div class="detail_item">
 							<hr color="#B5B5B5">
-							<div class="h4 detail_title">Условия<span class="change_inform" onclick="back()"></span></div>
+							<div class="h4 detail_title">Условия</div>
 							<p class="detail_text"><span><?php echo 'г. '.$row['name'] ?></span> <span><?php echo $newDateString.'-'.$oldDateString ?></span></p>
 						</div>
 					</div>
@@ -229,6 +230,7 @@
 								<div class="name"  data-name="price" data-reverse="price" style="justify-content: center; width: 150px;">Стоимость <div class="convert"><span class="filt" data-name="price"></span><span class="filt down" data-name="price" data-reverse="price"></span></div></div>
 								<form action="end.php" action="GET" style="margin:0;" class="send">
 									<input type="submit" value="Оформить" class="offer" hidden>
+
 								</form>
 							</div>
 					</div>
@@ -265,16 +267,17 @@
 
 								?></span></p>
 
-								<?php if(isset($_POST['agent_form'])){ ?>
+								<?php if(isset($_GET['agent_form'])){ ?>
 								<form action="register/end.php" action="GET" style="margin:0;">
 								<?php }else{ ?>
 								<form action="end.php" action="GET" style="margin:0;" class="send">
 								<?php } ?>
+ 									<input type="text" hidden name="get" value='<?php echo $actual_link?>'>
 									<input type="text" name="id" hidden value="<?php  echo $cat['id'];?>">
 									<input type="text" name="def" hidden value="<?php  echo $def;?>">
 									<input type="text" name="sity" hidden value="<?php echo $js[$sity]?>">
 									<input type="text" name="price" hidden class="price_<?php  echo $cat['id'];?>" value="<?php echo $all?>">
-									<input type="text" hidden name="info" value='<?php echo json_encode($_POST) ?>'>
+									<input type="text" hidden name="info" value='<?php echo json_encode($_GET) ?>'>
 									<input type="submit" value="Оформить" class="offer">
 								</form>
 							</div>
