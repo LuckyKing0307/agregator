@@ -28,8 +28,47 @@
 		let items_count = 1; 
 		const date_dis = document.querySelector('#date_dis');
 		const count_btn = document.querySelectorAll('.count_btn');
+
+        let mark_list12  = document.querySelector('.mark_list');
+        let mark_list1  = document.querySelector('.model_list');
 		for (count of count_btn) {
 			count.addEventListener('click',(e)=>{
+		        if (document.querySelector('#car_model_hid').value!='') {
+		          mark_list12.removeAttribute('disabled');
+		          mark_list12.value = document.querySelector('#car_model_hid').value;
+		          mark_list1.value = document.querySelector('#car_mark_hid').value;
+		          console.log('aaaaaa');
+		        }
+		        if (date!='') {
+					let splite= date;
+					splite=splite.value.split('-');
+					console.log(splite);
+					var D = new Date(parseInt(splite[0]),parseInt(splite[1]),parseInt(splite[2]));
+					D.setDate(D.getDate() - 1);
+					D.setFullYear(D.getFullYear() + 1);
+					let mm = D.getMonth();
+					let dd = D.getDate();
+					if (parseInt(dd)<10) {
+						dd=`0${dd}`;
+					}
+					if (parseInt(dd)==31) {
+						if (parseInt(mm)==1||parseInt(mm)==4||parseInt(mm)==5||parseInt(mm)==9||parseInt(mm)==11) {
+							dd=30;
+						}
+					}
+					if (parseInt(mm)<10) {
+						if (mm==0) {
+							mm=12;
+							D.setFullYear(D.getFullYear()-1);
+						}else{
+							mm=`0${parseInt(mm)}`;
+						}
+					}
+					console.log(dd);
+					let new_date = D.getFullYear()+"-"+mm+"-"+dd;
+					date_dis.value = new_date;
+					new_date="";
+		        }
 				window.scrollTo(0,0);
 				document.querySelector('.calc_l').style.display = 'block';
 			})
@@ -37,12 +76,29 @@
 		date.addEventListener('change',(e)=>{
 			let splite= date;
 			splite=splite.value.split('-');
-			console.log(splite);
 			var D = new Date(parseInt(splite[0]),parseInt(splite[1]),parseInt(splite[2]));
 			D.setDate(D.getDate() - 1);
+			console.log(D.getFullYear()+"-"+D.getMonth()+"-"+D.getDate());
 			D.setFullYear(D.getFullYear() + 1);
-			console.log(D);
-			let new_date = D.getFullYear()+"-"+D.getMonth()+"-"+D.getDate();
+			let mm = D.getMonth();
+			let dd = D.getDate();
+			if (parseInt(dd)==31) {
+				if (parseInt(mm)==1||parseInt(mm)==4||parseInt(mm)==5||parseInt(mm)==9||parseInt(mm)==11) {
+					dd=30;
+				}
+			}
+			if (parseInt(dd)<10) {
+				dd=`0${parseInt(dd)}`;
+			}
+			if (parseInt(mm)<10) {
+				if (mm==0) {
+					mm=12;
+					D.setFullYear(D.getFullYear()-1);
+				}else{
+					mm=`0${parseInt(mm)}`;
+				}
+			}
+			let new_date = D.getFullYear()+"-"+mm+"-"+dd;
 			date_dis.value = new_date;
 			new_date="";
 		})

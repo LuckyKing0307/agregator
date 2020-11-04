@@ -1,7 +1,6 @@
 <?php 
 	require('bd.php');
 	// print_r($_POST);
-	$_POST = json_decode($_POST['info'],true);
 	$nbday = DateTime::createFromFormat('Y-m-d', $_POST['bday'])->format('d.m.Y');
 	$dpass = DateTime::createFromFormat('Y-m-d', $_POST['dpass'])->format('d.m.Y');
 	$strax_dpass = DateTime::createFromFormat('Y-m-d', $_POST['strax_dpass'])->format('d.m.Y');
@@ -27,7 +26,7 @@
   <div class="nav">
           <div class="container container-my">
             <div class="row">
-              <a onclick="back(4)" class="col-md-2 menu_logo">
+              <a onclick="back(3)" class="col-md-2 menu_logo">
                 <img src="https://goldpreis.ru/img/logo.svg" class="logo" alt="">
               </a>
               <div class="col-md-2 head_btns">
@@ -88,6 +87,9 @@
 	.photo_pay{
 		width: 90%;
 	}
+	.form_btn{
+		text-decoration: none;
+	}
 	@media(max-width: 600px){
 		.reyr{
 			padding: 0;
@@ -113,12 +115,11 @@
 	}
 </style>
 
-					
 	<section class="head_title">
 			<div class=" container">
 				<div class="row">
 				<div class=" header_wrapper">
-					<p class="header_link"><span class="breads" onclick="back(4)">Главная/</span><span class="breads" onclick="back(3)">Список СК/</span><span class="breads" onclick="back(2)">Оформление/</span><span class="breads" onclick="back(1)">Проверка/</span><span class="breads">Оплата</span></p>
+					<p class="header_link"><span class="breads" onclick="back(3)">Главная/></span><span class="breads" onclick="back(2)">Список СК/</span><span class="breads" onclick="back(1)">Оформление/</span><span class="breads">Проверка</span></p>
 				</div>	
 			</div>
 		</div>
@@ -126,27 +127,6 @@
 	<section>
 		<div class="container">
 			<div class="row">
-				<div class="accordion  m-auto col-md-12" id="accordionExample">
-		            <div class="card detail">
-		              <div class="card-header" id="headingOne">
-		                <div class="mb-0 card_m blue_price">
-
-							<p class="price_item">Страховка <span><?php echo $_POST['agent']; ?></span></p>
-							<div class="reyr">
-								<?php for ($i=1; $i <=5; $i++) { ?>
-										<img src="img/active_star.svg" alt="" class="star">
-
-									<?php
-								} ?>
-							</div>
-							<p class="price_item"><span class="hiden">Покрытие: </span>400 000 ₽</p>
-							<p class="price_item price_form"><span class="hiden">Стоимость: </span><?php echo $_POST['price_agent']; ?></p>
-							<button class=" btn collapsed submit" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Детали</button>
-		                </div>
-		              </div>
-
-		              <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-		           
                 <div class="card-body row form_info">
 					<div class="offset-md-1 col-md-11 h1">Страховой полис</div>
 					<div class="offset-md-1 col-md-5">
@@ -192,46 +172,13 @@
 						</div>
 				</div>
                 </div>
-		              </div>
-		            </div>
-		        </div>
 			</div>
-			<div class="row payment_method">
-				<div class="col-md-8 pay_block">
-					<!-- <div class="block">
-						<div class="methods">
-							<p class="methods_item">Банковская Карта</p>
-							<p class="methods_item">Яндекс.деньги</p>
-							<p class="methods_item">PayPal</p>
-							<p class="methods_item">WebMoney</p>
-							<p class="methods_item">Qiwi</p>
-							<p class="methods_item">Элекснет</p>
-						</div>
-						<form action="" class="payment_form">
-							<div class="form_block form_block1">
-                    			<label for="" class="fio  with_label">Номер карты<input type="text" name="name" required class="calc_select s"></label>
-                    			<label for="" class="fio  with_label">Дата и чтото еше<input type="text" name="name" required class="calc_select s"></label>
-                    			<label for="" class="fio  with_label">ФИО собственника<input type="text" name="name" required class="calc_select s"></label>
-							</div>
-							<div class="form_block form_block2">
-                    			<label for="" class="fio  with_label">Номер карты<input type="text" name="name" required class="calc_select s"></label>
-                    			<label for="" class="fio  with_label">Дата и чтото еше<input type="text" name="name" required class="calc_select s"></label>
-                    			<label for="" class="fio  with_label">ФИО собственника<input type="text" name="name" required class="calc_select s"></label>
-							</div>
-						</form>
-
-		        
-					</div>
-					<div class="container"  style="margin-top: 40px;">
-			        <div class="form_next">
-	                    <div class="form_btn back_btn" data-list="2" onclick="back()" style="margin-right: 20px;">Назад</div>
-	                    <button class="form_btn" data-list="2">Далее ></button>
-	                </div>
-		        </div> -->
-		        <img src="img/payment.png" alt="" class="photo_pay">
-				</div>
-			</div>
-		</div>
+			<form action="payment.php" class="form_next" style="justify-content: flex-start;" method="post">
+				<input type="text" hidden  name="info" value='<?php echo json_encode($_POST)?>'>
+                    <div class="form_btn back_btn" data-list="2" onclick="back(1)" style="margin-right: 20px;">Назад</div>
+                    <button class="form_btn" data-list="2">Далее ></button>
+            </form>
+		</div> 
 	</section>
 	<script>
 		function back(time){

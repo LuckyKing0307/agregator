@@ -1,8 +1,8 @@
 <?php
 	require('bd.php');
 	$actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-	$sity = $_GET['sity'];
-	$car_type = $_GET['car_type'];
+	$sity = $_POST['sity'];
+	$car_type = $_POST['car_type'];
     $query = "SELECT * FROM `sity` WHERE id=".$sity;
     $data = mysqli_query($bd,$query);
     $row = mysqli_fetch_assoc($data);
@@ -20,22 +20,27 @@
 	$text = '';
 	$arr2 = array();
 	$count_name = 0;
-		$myDateTime = DateTime::createFromFormat('Y-m-d', $_GET['reg_date']);
+	if (isset($_POST['reg_date'])) {
+		$myDateTime = DateTime::createFromFormat('Y-m-d', $_POST['reg_date']);
 		$newDateString = $myDateTime->format('d.m.Y');
-	$old = $myDateTime->modify('-1 day')->modify('+1 year');
-	$oldDateString = $old->format('d.m.Y');
+		$old = $myDateTime->modify('-1 day')->modify('+1 year');
+		$oldDateString = $old->format('d.m.Y');
+	}else{
+		$newDateString = '';
+		$oldDateString = '';
+	}
 	$reg_date =explode('.', $newDateString);
-	if (isset($_GET['default'])) {
+	if (isset($_POST['default'])) {
 		$def=1;
-		$name = $_GET['uname'];
+		$name = $_POST['uname'];
 		$year = 0;
 		$arr = array();
 		for ($i=0; $i <count($name) ; $i++) {
 			if ($name[$i]!=="") {
 			$count_name+=1;
 			$d = getdate();
-			$test_data_ar = explode('-', $_GET['data'][$i]);
-			$test_data_st = $_GET['stage'][$i];
+			$test_data_ar = explode('-', $_POST['data'][$i]);
+			$test_data_st = $_POST['stage'][$i];
 		    $stage = $d['year'] - $test_data_st;
 		    $data = $d['year'] - $test_data_ar[0];
 
@@ -136,20 +141,71 @@
 	// echo 'КТ - '.$kt.'<br>';
 	// echo 'КМ - '.$km.'<br>';
 	// echo $text.' - '.$ko.'<br>';
-	 require('module/header.php'); 
-
  ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta charset="UTF-8">
+<title>Document</title>
+</head>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/media1.css">
+<body class="body">
+<header class="header_menu">
+  <div class="nav">
+          <div class="container container-my">
+            <div class="row">
+              <a onclick="back(1)" class="col-md-2 menu_logo">
+                <img src="https://goldpreis.ru/img/logo.svg" class="logo" alt="">
+              </a>
+              <div class="col-md-2 head_btns">
+                  <?php if (isset($_COOKIE['login'])) { ?>
+                    <img src="https://goldpreis.ru/img/human.svg" alt="">
+                  <?php }else{ ?>
+                    <img src="https://goldpreis.ru/img/menu.svg" alt="" onclick="Menu()">
+                  <?php } ?>
+              </div>
+              <ul class="nav col-md-4 dn">
+                <li class="nav-item">
+                  <a class="nav-link nav-link-item" href="https://goldpreis.ru/index.php">Осаго</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link nav-link-item" href="#">В3Р</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link nav-link-item" href="#">Каско</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link nav-link-item" href="#">Дмс</a>
+                </li>
+              </ul>
+                <?php 
+                  if (isset($_COOKIE['login'])) {?>
+              <div class="offset-md-3 col-md-3 dn" style="display: flex;justify-content: center;">
+                  <button class="head-btn menu dn"><a href="https://goldpreis.ru/register/login.php"><?php echo $_COOKIE['login'] ?></a></button>
+                <?php } else{ ?>     
+              <div class="offset-md-3 col-md-3 justify-content-between menu_wrap dn">
+                  <button class="head-btn menu "><a href="register/">Войти</a></button>
+                  <button class="head-btn menu "><a href="register/">Регистрация</a></button>
+              </div>
+                <?php } ?>
+            </div>
+          </div>
+        </div>
+</header>
  <style>
  	.head_title{
  		margin-top: 50px;
  	}
  </style>
- <input type="text" hidden name="post" id="post" value='<?php echo json_encode($_GET)?>'>
+ <input type="text" hidden name="post" id="post" value='<?php echo json_encode($_POST)?>'>
 	<section class="head_title">
 			<div class=" container">
 				<div class="row">
 				<div class=" header_wrapper">
-					<p class="header_link"><span><a href="index.php" class="breads">Главная/</a></span><span class="breads">Список Страховых</span></p>
+					<p class="header_link"><span class="breads" onclick="back(1)">Главная/</span><span class="breads">Список СК</span></p>
 				</div>
 			</div>
 		</div>
@@ -194,24 +250,24 @@
 			        </div>
 					<div class="detail" style="padding:25px;">
 						<div class="detail_item">
-							<?php if (isset($_GET['uname'])) { ?>
+							<?php if (isset($_POST['uname'])&&$_POST['uname'][0]!='') { ?>
 							<div class="h4 detail_title">Водители</span></div>
-							<?php for ($i=0; $i <count($_GET['uname']) ; $i++) { ?>
-								<p class="detail_text"><?php echo strtoupper ($_GET['usurname'][$i].' '. mb_substr($_GET['uname'][$i],0,1,'UTF-8').'.'.mb_substr($_GET['ufathername'][$i],0,1,'UTF-8').'.')?></p>
+							<?php for ($i=0; $i <count($_POST['uname']) ; $i++) { ?>
+								<p class="detail_text"><?php echo strtoupper ($_POST['usurname'][$i].' '. mb_substr($_POST['uname'][$i],0,1,'UTF-8').'.'.mb_substr($_POST['ufathername'][$i],0,1,'UTF-8').'.')?></p>
 								<p class="detail_text">КБМ 1(класс 3)</p>
 							<?php }}else{ ?>
 							<div class="h4 detail_title">Собственник</span></div>
-							<p class="detail_text"><?php echo strtoupper($_GET['surname'].' '. mb_substr($_GET['name'],0,1,'UTF-8').'.'.mb_substr($_GET['fathername'],0,1,'UTF-8').'.') ?></p>
+							<p class="detail_text"><?php echo strtoupper($_POST['surname'].' '. mb_substr($_POST['name'],0,1,'UTF-8').'.'.mb_substr($_POST['fathername'],0,1,'UTF-8').'.') ?></p>
 							<p class="detail_text">КБМ 1(класс 3)</p>
 							<?php } ?>
 						</div>
 						<div class="detail_item">
 							<hr color="#B5B5B5">
 							<div class="h4 detail_title">Автомобиль</div>
-							<?php if (isset($_GET['year'])){ ?>
-							<p class="detail_text"><?php echo $_GET['car'].' '.$_GET['carmodel'].' '. $row_km['KmKoef'].' '.$_GET['year'].' г.'?></p>
+							<?php if (isset($_POST['year'])){ ?>
+							<p class="detail_text"><?php echo $_POST['car'].' '.$_POST['carmodel'].' '. $row_km['KmKoef'].' '.$_POST['year'].' г.'?></p>
 							<?php }else{ ?>
-							<p class="detail_text"><?php echo $_GET['car'].' '.$_GET['carmodel']?></p>
+							<p class="detail_text"><?php echo $_POST['car'].' '.$_POST['carmodel']?></p>
 							<?php } ?>
 						</div>
 						<div class="detail_item">
@@ -238,9 +294,13 @@
 				 			$js = json_decode($cat['sity_tb'],true);
 					 ?>
 				            <?php if ($cat['top']==1){ ?>
-				            	<div class="strax_item recomend" data-id='<?php echo $cat['id']?>' data-file="index.php" data-price="<?php echo ($all=$js[$sity]*$summ*$cat['koef_bt']+$cat['koef_bt_summ']); ?>" data-reyt="<?php echo $cat['reyt'] ?>">
+				            	<div class="strax_item recomend" data-id='<?php echo $cat['id']?>' data-file="<?php echo $cat['api'] ?>" data-price="<?php echo ($all=$js[$sity]*$summ*$cat['koef_bt']+$cat['koef_bt_summ']); ?>" data-reyt="<?php echo $cat['reyt'] ?>">
 				        	<?php }else{ ?>
-				        		<div class="strax_item " data-price="<?php echo ($all=$js[$sity]*$summ*$cat['koef_bt']+$cat['koef_bt_summ']); ?>" data-reyt="<?php echo $cat['reyt'] ?>">
+				        		<?php if ($cat['api']==''): ?>
+				        		<div class="strax_item " data-price="<?php echo ($all=$js[$sity]*$summ*$cat['koef_bt']+$cat['koef_bt_summ']); ?>" data-file="1" data-reyt="<?php echo $cat['reyt'] ?>">
+				        		<?php else: ?>
+				        		<div class="strax_item " data-price="<?php echo ($all=$js[$sity]*$summ*$cat['koef_bt']+$cat['koef_bt_summ']); ?>" data-file="<?php echo $cat['api'] ?>" data-reyt="<?php echo $cat['reyt'] ?>">
+				        		<?php endif ?>
 				            <?php } ?>
 
 								<h4 class="name"><?php echo $cat['name']; ?>
@@ -267,7 +327,7 @@
 
 								?></span></p>
 
-								<?php if(isset($_GET['agent_form'])){ ?>
+								<?php if(isset($_POST['agent_form'])){ ?>
 								<form action="register/end.php" action="GET" style="margin:0;">
 								<?php }else{ ?>
 								<form action="end.php" action="GET" style="margin:0;" class="send">
@@ -277,7 +337,7 @@
 									<input type="text" name="def" hidden value="<?php  echo $def;?>">
 									<input type="text" name="sity" hidden value="<?php echo $js[$sity]?>">
 									<input type="text" name="price" hidden class="price_<?php  echo $cat['id'];?>" value="<?php echo $all?>">
-									<input type="text" hidden name="info" value='<?php echo json_encode($_GET) ?>'>
+									<input type="text" hidden name="info" value='<?php echo json_encode($_POST) ?>'>
 									<input type="submit" value="Оформить" class="offer">
 								</form>
 							</div>
@@ -321,16 +381,27 @@
 	<?php require('module/footer.php'); ?>
 	<script>
 		const date = document.querySelector('#post').value;
-		const strax_item = document.querySelector('.strax_item');
+		const strax_item = document.querySelectorAll('.strax_item');
 		function getData(item){
 			$.get('req/'+item.dataset.file+'?data='+date,  // url
 		      function (data, textStatus, jqXHR) {  // success callback
-		      	console.log(data)
-		      	price =  JSON.parse(data);
-		      	$('#'+item.dataset.id).text(price['price']+' p.');
-		      	$('.price_'+item.dataset.id).val(price['price']);
+		      	console.log(data);
+		      	if (data[0]=='{') {
+		      		price =  JSON.parse(data);
+			      	$('#'+item.dataset.id).text(price['price']+' p.');
+			      	$('.price_'+item.dataset.id).val(price['price']);
+		      	}else{
+		      		item.style.display = 'none';
+		      	}
 		         
 		    });
 		}
-		getData(strax_item)
+		let i = 0 ;
+		for (strax_items of strax_item) {
+			i++;
+			if (strax_items.dataset.api!='1') {
+				getData(strax_items)
+				console.log(strax_items);
+			}
+		}
 	</script>

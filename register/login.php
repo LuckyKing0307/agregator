@@ -1,33 +1,3 @@
-<!-- <?php 
-    require('../bd.php');
-    $query_s = "SELECT * FROM `sity`";
-    $data_s = mysqli_query($bd,$query_s);
-    $query1 = "SELECT * FROM `kmkoef`";
-    $data1 = mysqli_query($bd,$query1);
-    $query2 = "SELECT * FROM `stage`";
-    $data2 = mysqli_query($bd,$query2);
-    if (isset($_POST['reg'])) {
-        $login= mysqli_real_escape_string($bd,trim($_POST['login']));
-        $password= mysqli_real_escape_string($bd,trim($_POST['pass']));
-        if (!empty($login) && !empty($password)) {
-            $query = "SELECT * FROM `user` WHERE login = '$login' AND password = '$password'";
-            $data = mysqli_query($bd,$query);
-            if (mysqli_num_rows($data)==1) {
-                $row = mysqli_fetch_assoc($data);
-                setcookie('id',$row['id'],time()+(60*60*24*30),'/');
-                setcookie('login',$row['login'],time()+(60*60*24*30),'/');
-                header('Location: login.php');
-            }
-            else{
-                echo "BAD";
-            }
-        }
-        else{
-            echo "Заполните все поля правильно!!!";
-        }
-    }
- ?>
- -->
 <?php 
     require('../bd.php');
     $query_s = "SELECT * FROM `sity`";
@@ -46,10 +16,10 @@
                 $row = mysqli_fetch_assoc($data);
                 setcookie('id',$row['id'],time()+(60*60*24*30),'/');
                 setcookie('login',$row['login'],time()+(60*60*24*30),'/');
-                header('Location: login.php');
+                header('Location: https://goldpreis.ru/register/login.php');
             }
             else{
-                echo "BAD";
+                echo "BAD ".$login.' '.$password;
             }
         }
         else{
@@ -94,6 +64,15 @@
     .fio.with_label{
         color: #000 !important;
         font-weight: 700 !important;
+    }
+    .car_checker{
+        position: relative;
+
+    }
+    .car_list,.car_marks{
+        position: absolute;
+        height: 150px;
+        overflow: auto;
     }
     </style>
     <?php  if (isset($_COOKIE['login'])) { 
@@ -166,8 +145,8 @@
                                     <label for="" class="fio  with_label "><input type="text" class="calc_select " placeholder="Очество" name="a_fathername" value="<?php echo $row['fathername']; ?>"></label>
                                 </div>
                                 <div class="user_inf row jcb" style="margin-right: -5px;">
-                                    <label for="" class="fio  with_label ">Email<input type="text" name="email" class="calc_select" placeholder="Имя" name="a_name" value="<?php echo $row['email']; ?>" ></label>
-                                    <label for="" class="fio  with_label ">Телефон<input type="text" name="phone" class="calc_select" placeholder="Фамилия" name="a_surname" value="<?php echo  $row['phone']; ?>"></label>
+                                    <label for="" class="fio  with_label ">Email<input type="text" name="email" class="calc_select" placeholder="Почта" name="a_name" value="<?php echo $row['email']; ?>" ></label>
+                                    <label for="" class="fio  with_label ">Телефон<input type="text" name="phone" class="calc_select" placeholder="Телефон" name="a_surname" value="<?php echo  $row['phone']; ?>"></label>
                                     <label for="" class="fio  with_label ">&nbsp<input type="text" name="" class="calc_select" placeholder="Код подтверждения" name="a_fathername"></label>
                                 </div>
                             </div>
@@ -210,7 +189,7 @@
                         <div class="calc_avto sec2_calc_avto row m-auto">
                                 <label for="" class="fio  with_label">Фамилия<input type="text" class="surname calc_select" name="surname" placeholder="Фамилия" value="<?php echo $user['surname']?>"></label>
                                 <label for="" class="fio  with_label">Имя<input type="text" class="calc_select name2" name="name" placeholder="Имя"  value="<?php echo $user['name']; ?>"></label>
-                                <label for="" class="fio  with_label">Отчество<input type="text" class="calc_select fathername" name="fathername" value="<?php echo $user['fathername']; ?>"></label>
+                                <label for="" class="fio  with_label">Отчество<input type="text" class="calc_select fathername" name="fathername" placeholder="Отчество" value="<?php echo $user['fathername']; ?>"></label>
                                 <label for="" class="fio  with_label">Паспорт<input type="text" class="calc_select pass" name="passport" placeholder="Паспорт" value="<?php echo $user['passport']?>"></label>
                                 <label for="" class="fio  with_label">Дата выдачи паспорта<input type="date" class="calc_select day_pass" name="passport_date" placeholder="Дата выдачи паспорта"  value="<?php echo $user['passport_date']; ?>"></label>
                                 <label for="" class="fio  with_label">Адрес выдачи паспорта<input type="text" placeholder="Адрес выдачи паспорта" class="calc_select place" name="passport_place" value="<?php echo $user['passport_place']; ?>" ></label>
@@ -240,7 +219,7 @@
                         <div class="calc_avto sec2_calc_avto row m-auto">
                                 <label for="" class="fio  with_label">Фамилия<input type="text" class="calc_select surname1" name="user_surname" placeholder="Фамилия" value="<?php echo $user_car['surname']?>"></label>
                                 <label for="" class="fio  with_label">Имя<input type="text" class="calc_select name1" name="user_name" placeholder="Имя"  value="<?php echo $user_car['name']; ?>"></label>
-                                <label for="" class="fio  with_label">Отчество<input type="text" class="calc_select fathername1" name="user_fathername" value="<?php echo $user_car['fathername']; ?>"></label>
+                                <label for="" class="fio  with_label">Отчество<input type="text" class="calc_select fathername1" name="user_fathername"  placeholder="Отчество" value="<?php echo $user_car['fathername']; ?>"></label>
                                 <label for="" class="fio  with_label">Паспорт<input type="text" class="calc_select pass1" name="user_passport" placeholder="Имя" value="<?php echo $user_car['passport']?>"></label>
                                 <label for="" class="fio  with_label">Дата выдачи паспорта<input type="date" class="calc_select day_pass1" name="user_passport_date" placeholder="Фамилия"  value="<?php echo $user_car['passport_date']; ?>"></label>
                                 <label for="" class="fio  with_label">Адрес выдачи паспорта<input type="text" class="calc_select place1" name="user_passport_place" placeholder="Очество"   value="<?php echo $user_car['passport_place']; ?>"></label>
@@ -327,14 +306,17 @@
                                     </select>
                                 </label>
                                 <label for="" class="fio with_label">Марка
-                                    <select id="" name="car"  class="calc_select" value="<?php echo $car['car']; ?>">
-                                        <option value="Каптива">Каптива</option>
-                                    </select>
+                                    <div class="car_checker ">
+                                        <input type="text" name="car" class="calc_select car_input model_list start_date" data-id="" onfocus="takeBase()" onkeyup="takeBaseList(this)" placeholder="Введите марку" required autocomplete="off">
+                                        <div class="car_marks"></div>
+                                    </div>
                                 </label>
                                 <label for="" class="fio with_label">Модель
-                                    <select id="" name="carmodel" class="calc_select" value="<?php echo $car['carmodel']; ?>">
-                                        <option value="xs">xs</option>
-                                    </select></label>
+                                  <div class="car_checker ">
+                                    <input type="text" name="carmodel" class="calc_select mark_list start_date" disabled onkeyup="takeCarList(this)" onfocus="listCar(this.dataset.markid);" placeholder="Укажите модель " required autocomplete="off">
+                                    <div class="car_list"></div>
+                                  </div>
+                                </label>
                                 </label>
                               </div>
                             </div>
@@ -349,185 +331,265 @@
             </div>
         </div>
     </section>
-<!--     <form action="result.php" method="post"  enctype="multipart/form-data">
-        <?php if (isset($user['img'])) { ?>
-            <img src="img/<?php echo $user['img'] ?>" alt="" width="150" class="img">
-        <?php } ?>
-        <input type="file" name="img">
-    <div class="info">
-        <div class="car">
-            <?php if (isset($_COOKIE['login'])) { ?>
-            <h1>Личный кабинет-<?php echo $_COOKIE['login']; ?></h1>
-            <?php } ?>
-                <h1>Информация об автомобиле</h1>
-            <label for="number">Номерной знак
-            <input type="text" id="number" placeholder="Номерной знак" name="car_number"  value="<?php echo $car['car_number']?>"></label>
-            <label for="">Категория
-            <select id="" disabled="disabled">
-                <option value="Б">Категория Б</option>
-            </select></label>
-            <label for="">Цель использования
-            <select id="" disabled="disabled">
-                <option value="Личная">Личная</option>
-            </select></label>
-            <label for="">Марка
-            <select id="" name="car" value="<?php echo $car['car']; ?>">
-                <option value="Каптива">Каптива</option>
-            </select></label>
-            <label for="">Мошность л.с.
-            <select id=""  name="car_type" value="<?php echo $car['car_type']; ?>">
-                    <?php while ($cat = mysqli_fetch_assoc($data1)) {
-                    ?>
-                    <option value="<?php echo $cat['id'] ?>"><?php echo $cat['KmName']; ?></option>
-                 <?php
-                    } ?>
-            </select></label>
-            <label for="">Модель
-            <select id="" name="carmodel" value="<?php echo $car['carmodel']; ?>">
-                <option value="xs">xs</option>
-            </select></label>
-            <label for="">Год
-            <select id="" name="year" value="<?php echo $car['year']; ?>">
-                <option value="2020">2020</option>
-            </select></label><br><br>
-            <label for="number">
-                <select name="vin_type" id="" class="items_car">
-                    <?php
-                        $vin_row = "SELECT * FROM vin WHERE id=".$car['vin_type'];
-                        $vin_data_row = mysqli_query($bd,$vin_row);
-                        $vin_row = mysqli_fetch_assoc($vin_data_row)
-                    ?>
-                    <option value="<?php echo $vin_row['id']?>"><?php echo $vin_row['name'] ?></option>
-                    <?php 
-                        $vin = "SELECT * FROM vin WHERE id!=".$car['vin_type'];
-                        $vin_data = mysqli_query($bd,$vin);
-                        while ($cat = mysqli_fetch_assoc($vin_data)) { ?>
-                             <option value="<?php echo $cat['id']?>"><?php echo $cat['name'] ?></option>
-                        <?php } ?>
-                </select><input type="text" id="number" placeholder="CTC" name="vin"  value="<?php echo $car['vin']?>"></label><br><br>
-            <label for="number">
-                <select name="sts_type" id="" class="items_car">
-                    <?php
-                        $sts_row = "SELECT * FROM sts WHERE id=".$car['sts_type'];
-                        $sts_data_row = mysqli_query($bd,$sts_row);
-                        $sts_row = mysqli_fetch_assoc($sts_data_row)
-                    ?>
-                    <option value="<?php echo $sts_row['id']?>"><?php echo $sts_row['name'] ?></option>
-                    <?php 
-                        $sts = "SELECT * FROM sts WHERE id!=".$car['sts_type'];
-                        $sts_data = mysqli_query($bd,$sts);
-                        while ($cat = mysqli_fetch_assoc($sts_data)) { ?>
-                             <option value="<?php echo $cat['id']?>"><?php echo $cat['name'] ?></option>
-                        <?php } ?>
-                </select>
-            <input type="text" id="number" placeholder="VIN" name="ctc"  value="<?php echo $car['ctc']?>"></label>
-        </div>
-             <h1>Настройка профиля</h1>
-            <div>  
-                    <input type="text" placeholder="Имя" name="a_name" value="<?php echo  $row['name']; ?>" >
-                    <input type="text" placeholder="Фамилия" name="a_surname" value="<?php echo  $row['surname']; ?>" >
-                    <input type="text" placeholder="Очество" name="a_fathername" value="<?php echo $row['fathername']; ?>">
-                    <input type="text" placeholder="Логин" name="login" value="<?php echo  $row['login']; ?>" >
-                    <input type="text" placeholder="Телефон" name="phone" value="<?php echo  $row['phone']; ?>" >
-                    <input type="text" placeholder="Email" name="email" value="<?php echo $row['email']; ?>">
-                    <input type="text" placeholder="Старый пороль" name="pass" >
-                    <input type="text" placeholder="Новый пороль" name="newpass">
-            </div>
-
-        <div class="users_info">
-                <h1>Инфоримация о страхователя</h1>
-                <label for="">Инвормация о страхователя</label>
-            <div class="user">
-                <input type="text" class="surname" placeholder="Фамилия" name="surname"  value="<?php echo $user['surname']; ?>">
-                <input type="text" class="name" placeholder="Имя" name="name" value="<?php echo $user['name']; ?>">
-                <input type="text" class="fathername" placeholder="Очество" name="fathername"  value="<?php echo $user['fathername']; ?>">
-                <input type="date" class="day" placeholder="Дата рождения" name="birthday" style="text-align: center;"  value="<?php echo $user['birthday']; ?>">
-                <input type="text" class="pass" placeholder="Паспорт" name="passport"  value="<?php echo $user['passport']; ?>">
-                <input type="date" class="day_pass" placeholder="Дата выдачи" name="passport_date" style="text-align: center;"  value="<?php echo $user['passport_date']; ?>">
-                <input type="text" class="vu" placeholder="Номер ВУ" name="vu"  value="<?php echo $user['vu']; ?>">
-                <input type="date" class="day_vu" placeholder="Дата выдачи ВУ" name="date_vu" style="text-align: center;"  value="<?php echo $user['date_vu']; ?>">
-            </div>
-            <div class="inform">
-                <input type="text" class="passport_place place" placeholder="Кем выдан" name="passport_place"  value="<?php echo $user['passport_place']; ?>">
-                <input type="text" class="passport_place reg" placeholder="Регистрация" name="register"  value="<?php echo $user['register']; ?>">
-            <label for="me">Я собственник<input type="checkbox" id="me" onclick="myFunction()" name="agent1"></label>
-                <?php if ($row['role']==3) { ?>
-                            
-                    <label for="me">Я агент<input type="checkbox" id="me1" name="agent" onclick="inHide()" checked>
-                    <input type="text" name="key" minlength="4" maxlength="8"  hidden class="checker">
-                    </label>
-                <?php }else{ ?>
-                    <label for="me1">Я агент<input type="checkbox" id="me1" onclick="inHide()" name="agent">
-                        <input type="text" name="key" minlength="4" maxlength="8"  hidden class="checker">
-                    </label>
-                <?php } ?>
-            </div>
-            <hr>
-
-                <h1>Инфоримация о собственнике</h1>
-                <label for="">Инвормация о собственнике</label>
-
-            <div class="user">
-                <input type="text" class="surname1" placeholder="Фамилия" name="user_surname"  value="<?php echo $user_car['surname']; ?>">
-                <input type="text" class="name1" placeholder="Имя" name="user_name" value="<?php echo $user_car['name']; ?>">
-                <input type="text" class="fathername1" placeholder="Очество" name="user_fathername"  value="<?php echo $user_car['fathername']; ?>">
-                <input type="date" class="day1" placeholder="Дата рождения" name="user_birthday" style="text-align: center;"  value="<?php echo $user_car['birthday']; ?>">
-                <input type="text" class="pass1" placeholder="Паспорт" name="user_passport"  value="<?php echo $user_car['passport']; ?>">
-                <input type="date" class="day_pass1" placeholder="Дата выдачи" name="user_passport_date" style="text-align: center;"  value="<?php echo $user_car['passport_date']; ?>">
-                <input type="text" class="vu1" laceholder="Номер ВУ" name="user_vu"  value="<?php echo $user['vu']; ?>">
-                <input type="date" class="day_vu1" placeholder="Дата выдачи ВУ" name="user_date_vu" style="text-align: center;"  value="<?php echo $user_car['date_vu']; ?>">
-            </div>
-            <div class="inform">
-                <input type="text" class="passport_place place1" placeholder="Кем выдан" name="user_passport_place"  value="<?php echo $user_car['passport_place']; ?>">
-                <input type="text" class="passport_place reg1" placeholder="Регистрация" name="user_register"  value="<?php echo $user_car['register']; ?>">
-                <label for="">Город<select name="sity" id="">
-                    <?php while ($cat = mysqli_fetch_assoc($data_s)) {
-                    ?>
-                    <option value="<?php echo $cat['id'] ?>"><?php echo $cat['name']; ?></option>
-                 <?php
-                    } ?>
-                </select></label>
-            </div>
-            
-            <?php if ($user['default']==1){ ?>
-            <button class="list1" style="display: none;">Список</button>
-            <button class="list">Без лимита</button>
-            <div class="user_info is_active"><h1>Список водителей</h1>
-                <input type="text" name="default" hidden   class="default">
-                <input type="text" hidden class="agent"  name="agent_num">
-                
-            <?php }else{ ?>
-            <button class="list">Список</button>
-            <button class="list1" style="display: none;">Без лимита</button>
-            <div class="user_info"><h1>Список водителей</h1>
-                <input type="text" name="default" hidden disabled class="default">
-                <input type="text" hidden class="agent"  name="agent_num">
-                
-            <?php } ?>
-        <?php for ($i=0; $i<=6; $i++) { echo $i+1; ?>
-        <div class="user user<?php echo $i;?>">
-            <input type="text" name="uname[]" class="items" placeholder="Имя" value="<?php echo $info['uname'][$i]?>">
-            <input type="text" name="usurname[]" class="items" placeholder="Имя" value="<?php echo $info['usurname'][$i]?>">
-            <input type="text" name="ufathername[]" class="items" placeholder="Имя" value="<?php echo $info['ufathername'][$i]?>">
-            <input type="text" name="uvu[]" class="items" placeholder="Серия и номер ВУ" value="<?php echo $info['ufathername'][$i]?>">
-            <label class="label" for="" style="margin-top: -20px;">Дата рождения<br><input type="date"  name="data[]"  class="items" style="width: 100%;" value="<?php echo $info['data'][$i] ?>"></label>
-            <label class="label" for="" style="margin-top: -20px;">Дата выдачи<br><input type="date" name="stage[]" class="items" style="width: 100%;" value="<?php echo $info['data'][$i] ?>"></label>
-        </div>
-        <?php } ?>
-        </div>
-        </div>
-
-    </div>
-    <hr style="margin: 20px 0;">
-</form> -->
     <script src="../js/main.js" defer></script>
     <?php }else{ ?>
-    <h1>Вход в ЛК</h1>
-    <form action="login.php" method="post">
+        <style>
+        .calc_avto{
+            flex-direction: column;
+        }
+        .with_label {
+            width: 100% !important;
+        }
+        .fio{
+            margin-top: 0;
+            position: relative;
+        }
+        .calc_select{
+            height: 48px;
+        }
+        .product_list{
+            margin-top: 0;
+        }
+        .w50{
+            width: 50%; 
+        }
+        .buttons{
+            width: 100%;
+        }
+        .rect,.text{
+            width: 90%;
+            margin: 0 auto;
+        }
+        .rect>img{
+            width: 100%;
+        }
+        .text{
+            font-weight: 300;
+            font-size: 18px;
+            line-height: 32px;
+            /* or 178% */
+
+
+            color: #B7B7B7;
+        }
+        .forget{
+            margin-top: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+        .code{
+            display: none;
+            position: absolute;
+            bottom: -50%;
+            z-index: 10;
+            justify-content: center;
+            align-items: center;
+            width: 50%;
+            height: 30px;
+            border-radius: 20px;
+            background: #FFFFFF;
+            box-shadow: 0px 0px 24px rgba(5, 53, 81, 0.11);
+            border-radius: 24px;
+            font-size: 12px;
+            line-height: 16px;
+            color: #4078CD;
+        }
+        .code1{
+            top: -25%;
+        }
+        .code1>img{
+            margin-right: 10px;
+        }
+        .code:hover{
+            cursor: pointer;
+        }
+        .none{
+            display: none;
+        }
+        @media(max-width:600px){
+            form{
+                width: 90%;
+                margin: 0 auto;
+            }
+            .agent_button{
+                height: 48px;
+                padding: 0 10px 0 0;
+            }
+            .checker1{
+                padding-right: 0 !important;
+            }
+            .forget{
+                flex-direction: column;
+                justify-content: center;
+            }
+            .forget_text{
+                text-align: center;
+            }
+            .strax_list{
+                margin-top: 40px;
+            }
+            .checker1{
+                width: 70%;
+            }
+            .phone{
+                width: 100%;
+            }
+        }
+    </style>
+<?php require('../module/header.php'); ?>
+    <section class="head_title">
+            <div class=" container">
+                <div class="row">
+                <div class=" header_wrapper">
+                    <div class="h1 header_h1">Вход</div>
+                </div>
+
+                <div class=" header_wrapper">
+                    <p class=" header_link" onclick="back()"><span class="breads">Назад</span></p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="product_list">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 detail_wrapper">
+                <form action="login.php" method="post">
+                    <div class="calc_avto sec2_calc_avto row m-auto owner">
+                      <label for="" class="fio with_label"><input type="text" class="calc_select " name="login" placeholder="Email"></label>
+                      <label for="" class="fio with_label"><input type="text" class="calc_select " name="pass" placeholder="Пороль"></label>
+                    
+                    </div>
+                    <input type="submit" name="reg" class="form_btn buttons" value="Войти" >
+                </form>
+                </div>
+                <div class="col-md-8 strax_list">
+                    <div class="rect">
+                            <img src="../img/Regist.png" alt="">
+                    </div>
+                    <div class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<!--     <form action="login.php" method="post">
         <input type="text" name="login" placeholder="Логин" >
         <input type="password" name="pass" placeholder="Пароль" >
         <input type="submit" name="reg" value="Войти">
-    </form>
+    </form> -->
     <?php } ?>
-    <script src="../js/ajax.js"></script>
+<script src="../js/ajax.js"></script>
+<script>
+      const car_marks = document.querySelector('.car_marks');
+      const car_list = document.querySelector('.car_list');
+          function takeBase(){
+          var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+              car_list.innerHTML = '';
+              car_marks.innerHTML = '';
+              car_marks.style.zIndex = '1';
+              mark = JSON.parse(this.responseText);
+              for (let i = 0; i < mark.length; i++) {
+                car_marks.innerHTML+=`<div class="car_mark_items" data-id="${mark[i][0]}" data-name="${mark[i][1]}">${mark[i][1]}</div>`
+              }
+            }
+            else{
+            }
+          };
+          xhttp.open("GET", "https://goldpreis.ru/req/takeBase.php", true);
+          xhttp.send();
+      }
+      function takeBaseList(mark){
+        document.querySelector('.mark_list').value ='';
+        document.querySelector('.mark_list').setAttribute('disabled', 'disabled');
+        mark.style.border = 'none';
+        car_list.innerHTML = '';
+        car_marks.innerHTML = '';
+        car_marks.style.zIndex = '0';
+          var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+              car_list.innerHTML = '';
+              car_marks.style.zIndex = '1';
+              mark = JSON.parse(this.responseText);
+
+              for (let i = 0; i < mark.length; i++) {
+                car_marks.innerHTML+=`<div class="car_mark_items" data-id="${mark[i][0]}" data-name="${mark[i][1]}">${mark[i][1]}</div>`
+              }
+            }
+            else{
+            }
+          };
+            xhttp.open("GET", "https://goldpreis.ru/req/takeBase.php?mark="+mark.value, true);
+            xhttp.send();
+
+        }
+        function clouse(item){
+          document.querySelector('.'+item).innerHTML = '';
+        }
+        function listCar(item){
+        car_list.innerHTML = '';
+          var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+              document.querySelector('.mark_list').removeAttribute('disabled');
+              car_list.style.zIndex = '1';
+              mark = JSON.parse(this.responseText);
+              car_list.innerHTML = '';
+              for (let i = 0; i < mark.length; i++) {
+                car_list.innerHTML+=`<div class="car_mark_items" data-id="${mark[i][0]}" data-name="${mark[i][1]}">${mark[i][1]}</div>`
+              }
+            }
+            else{
+            }
+          };
+          xhttp.open("GET", "https://goldpreis.ru/req/takeBase.php?car="+item, true);
+          xhttp.send();
+        }
+        function takeCarList(item){
+          car_list.innerHTML = '';
+          item.style.border = 'none';
+          var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+              console.log(this.responseText);
+              document.querySelector('.mark_list').removeAttribute('disabled');
+              car_list.style.zIndex = '1';
+              mark = JSON.parse(this.responseText);
+              for (let i = 0; i < mark.length; i++) {
+                car_list.innerHTML+=`<div class="car_mark_items" data-id="${mark[i][0]}" data-name="${mark[i][1]}">${mark[i][1]}</div>`
+              }
+            }
+            else{
+            }
+          };
+          xhttp.open("GET", "https://goldpreis.ru/req/takeBase.php?car_list="+item.value+"&search="+document.querySelector('.car_input').dataset.id, true);
+          xhttp.send();
+        }
+          car_marks.addEventListener('click',(e)=>{
+
+            if (e.target.dataset.id) {
+              car_marks.style.zIndex = '0';
+              document.querySelector('.car_input').value ='';
+              document.querySelector('.car_input').value = e.target.dataset.name;
+              document.querySelector('.car_input').dataset.id = e.target.dataset.id;
+              document.querySelector('.mark_list').dataset.markid = e.target.dataset.id;
+              listCar(e.target.dataset.id);
+              clouse('car_marks');
+            }
+          })
+          car_list.addEventListener('click',(e)=>{
+            if (e.target.dataset.id) {
+              car_list.style.zIndex = '0';
+              document.querySelector('.mark_list').value ='';
+              document.querySelector('.mark_list').value = e.target.dataset.name;
+              document.querySelector('.mark_list').dataset.id = e.target.dataset.id;
+              clouse('car_list');
+            }
+
+          })
+</script>
 <?php require('../module/footer.php') ?>

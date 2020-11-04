@@ -70,7 +70,7 @@
                     <button class="head-btn menu dn"><a href="register/login.php"><?php echo $_COOKIE['login'] ?></a></button>
                   <?php } else{ ?>   
                 <div class="offset-md-3 col-md-3 justify-content-between menu_wrap">
-                    <button class="head-btn menu dn"><a href="register/">Войти</a></button>
+                    <button class="head-btn menu dn"><a href="register/login.php">Войти</a></button>
                     <button class="head-btn menu dn"><a href="register/">Регистрация</a></button>
                 </div>
                   <?php } ?>
@@ -87,7 +87,7 @@
               <li class="navigation_li i3">Расчет</li>
             </ul>
           </nav>
-            <form action="result.php" method="get">
+            <form action="result.php" method="post">
               <div class="sec sec_1 is_used">
                 <div class="calc_avto row m-auto">
                   <select name="" disabled="" class="col-md-3 calc_select">
@@ -97,11 +97,11 @@
                     <option value="Личная">Личная</option>
                   </select>
                   <div class="car_checker col-md-2 ">
-                    <input type="text" name="car" class="calc_select car_input start_date" data-id="" onfocus="takeBase()" onkeyup="takeBaseList(this)" placeholder="Введите марку" required>
+                    <input type="text" name="car" class="calc_select car_input model_list start_date" data-id="" onfocus="takeBase()" onkeyup="takeBaseList(this)" placeholder="Введите марку" required autocomplete="off">
                     <div class="car_marks" ></div>
                   </div>
                   <div class="car_checker col-md-2 ">
-                    <input type="text" name="carmodel" class="calc_select mark_list start_date" disabled onkeyup="takeCarList(this)" placeholder="Укажите модель " required>
+                    <input type="text" name="carmodel" class="calc_select mark_list start_date" disabled onkeyup="takeCarList(this)" onfocus="listCar(this.dataset.markid);" placeholder="Укажите модель " required autocomplete="off">
                     <div class="car_list" ></div>
                   </div>
                   <select name="car_type" class="col-md-2 calc_select">
@@ -146,13 +146,15 @@
                     <label for="lim" class="checkbox">
                       <input type="text" name="number" class="num" hidden>
                       <input type="checkbox" name="default" id="lim" hidden>
+                      <input type="text"  id="car_model_hid" hidden>
+                      <input type="text"  id="car_mark_hid" hidden>
                     </label>
                   <span class="list">Список водителей</span>
                 </div>
                 <div class="calc_avto sec2_calc_avto row m-auto owner">
-                    <label for="" class="fio with_label">ФИО собственника<input type="text" class="calc_select " name="name" placeholder="Фамилия"></label>
-                  <label for="" class="fio with_label">&nbsp<input type="text" class="calc_select " name="surname" placeholder="Имя"></label>
-                  <label for="" class="fio with_label">&nbsp<input type="text" class="calc_select " name="fathername" placeholder="Очество"></label>
+                    <label for="" class="fio with_label">ФИО собственника<input type="text" class="calc_select " name="surname" placeholder="Фамилия"></label>
+                  <label for="" class="fio with_label">&nbsp<input type="text" class="calc_select " name="name" placeholder="Имя"></label>
+                  <label for="" class="fio with_label">&nbsp<input type="text" class="calc_select " name="fathername" placeholder="Отчество"></label>
                   <div class="calc_avto n_1">
                     <label for="" class="fio with_label">Дата рождения:<input type="date" name="birthday" class="calc_select "></label>
                     <label for="" class="fio with_label">Серия и номер паспорта:<input type="text" name="passport" class="calc_select " style="height: 40px"></label>
@@ -433,7 +435,6 @@
           xhttp.send();
       }
       function takeBaseList(mark){
-
         document.querySelector('.mark_list').value ='';
         document.querySelector('.mark_list').setAttribute('disabled', 'disabled');
         mark.style.border = 'none';
@@ -507,6 +508,8 @@
           document.querySelector('.car_input').value ='';
           document.querySelector('.car_input').value = e.target.dataset.name;
           document.querySelector('.car_input').dataset.id = e.target.dataset.id;
+          document.querySelector('.mark_list').dataset.markid = e.target.dataset.id;
+          document.querySelector('#car_mark_hid').value = e.target.dataset.name;
           listCar(e.target.dataset.id);
           clouse('car_marks');
         }
@@ -517,6 +520,7 @@
           document.querySelector('.mark_list').value ='';
           document.querySelector('.mark_list').value = e.target.dataset.name;
           document.querySelector('.mark_list').dataset.id = e.target.dataset.id;
+          document.querySelector('#car_model_hid').value = e.target.dataset.name;
           clouse('car_list');
         }
 

@@ -95,7 +95,6 @@ if ($_POST['pass']==$row['password']) {
 $a_name = $_POST['a_name'];
 $a_surname = $_POST['a_surname'];
 $a_fathername = $_POST['a_fathername'];
-echo (`username `.$a_name.`role `.$role.`surname `.$a_surname.`fathername `.$a_fathername. `car `.$car_js.`user `.$user_js.`user_car `.$user_car_js.`all_users `.$info_js.`phone `.$phone.`email `.$email.`password `.$pass);
 $query_s = "UPDATE `user` SET `name`='$a_name',`role`='$role',`surname`='$a_surname',`fathername`='$a_fathername', `car`='$car_js',`user`='$user_js',`user_car`='$user_car_js',`all_users`='$info_js',`phone`='$phone',`email`='$email',`password`='$pass' WHERE id=".$_COOKIE['id'];
 $data_s = mysqli_query($bd,$query_s);
 header('Location: login.php')

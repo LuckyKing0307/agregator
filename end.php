@@ -11,8 +11,59 @@
     $data_sity = mysqli_query($bd,$query_sity);
     $row_sity = mysqli_fetch_assoc($data_sity)
 ?>
-
-<?php require('module/header.php'); ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta charset="UTF-8">
+<title>Document</title>
+</head>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/media1.css">
+<body class="body">
+<header class="header_menu">
+  <div class="nav">
+          <div class="container container-my">
+            <div class="row">
+              <a onclick="back(2)" class="col-md-2 menu_logo">
+                <img src="https://goldpreis.ru/img/logo.svg" class="logo" alt="">
+              </a>
+              <div class="col-md-2 head_btns">
+                  <?php if (isset($_COOKIE['login'])) { ?>
+                    <img src="https://goldpreis.ru/img/human.svg" alt="">
+                  <?php }else{ ?>
+                    <img src="https://goldpreis.ru/img/menu.svg" alt="" onclick="Menu()">
+                  <?php } ?>
+              </div>
+              <ul class="nav col-md-4 dn">
+                <li class="nav-item">
+                  <a class="nav-link nav-link-item" href="https://goldpreis.ru/index.php">Осаго</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link nav-link-item" href="#">В3Р</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link nav-link-item" href="#">Каско</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link nav-link-item" href="#">Дмс</a>
+                </li>
+              </ul>
+                <?php 
+                  if (isset($_COOKIE['login'])) {?>
+              <div class="offset-md-3 col-md-3 dn" style="display: flex;justify-content: center;">
+                  <button class="head-btn menu dn"><a href="https://goldpreis.ru/register/login.php"><?php echo $_COOKIE['login'] ?></a></button>
+                <?php } else{ ?>     
+              <div class="offset-md-3 col-md-3 justify-content-between menu_wrap dn">
+                  <button class="head-btn menu "><a href="register/">Войти</a></button>
+                  <button class="head-btn menu "><a href="register/">Регистрация</a></button>
+              </div>
+                <?php } ?>
+            </div>
+          </div>
+        </div>
+</header>
 <style>
 	.w80{
 		width: 100%;
@@ -106,7 +157,7 @@
 			<div class=" container">
 				<div class="row">
 				<div class=" header_wrapper">
-					<p class="header_link"><span><a href="index.php" class="breads">Главная/</a></span><span onclick="back()" class="breads">Список Страховых/</span><span class="breads">Офармление</span></p>
+					<p class="header_link"><span class="breads" onclick="back(2)">Главная/</span><span onclick="back(1)" class="breads">Список СК/</span><span class="breads">Оформление</span></p>
 				</div>
 				<div class="col-md-12">
 					<div class="warrning">
@@ -140,7 +191,7 @@
 						<hr>
 						<div class="detail_item">
 							<div class="p_price">
-								<?php echo (number_format($_GET['price'],2, ',', ' ').' p.');?>
+								<?php echo (number_format($_GET['price'],2, ',', ' ').' ₽');?>
 							</div>
 						</div>
 							<?php if ($info['surname']!=''): ?>
@@ -162,7 +213,11 @@
 					</div>
 			</div>
 			<div class="col-md-9">
-		<form action="payment.php" method="POST">
+		<form action="checking.php" method="POST">
+			<input type="text" hidden name="info_res" value='<?php echo $_GET['info']?>'>
+			<input type="text" hidden name="agent" value='<?php echo $row['name'] ?>'>
+			<input type="text" hidden name="price_agent" value='<?php echo (number_format($_GET['price'],2, ',', ' ').' p.');?>'>
+			
 		<div class="container">
 			<div class="head_form head_form1">Данные Собственника
 				<label for="strah_user" class="strah_user"><input type="checkbox" id="strah_user"> ЯВЛЯЕТСЯ СТРАХОВАТЕЛЕМ</label>
@@ -170,7 +225,7 @@
 			<div class="calc_avto sec2_calc_avto row m-auto">
                     <label for="" class="fio  with_label main">ФИО собственника<input type="text" name="name" required class="calc_select s" placeholder="Фамилия" value="<?php echo $info['surname']?>" ></label>
 	                <label for="" class="fio  with_label main">&nbsp<input type="text" required name="surname" class="calc_select n" placeholder="Имя" value="<?php echo $info['name']?>"></label>
-	                <label for="" class="fio  with_label main">&nbsp<input type="text" required name="fathername" class="calc_select f" placeholder="Очество" value="<?php echo $info['fathername']?>"></label>
+	                <label for="" class="fio  with_label main">&nbsp<input type="text" required name="fathername" class="calc_select f" placeholder="Отчество" value="<?php echo $info['fathername']?>"></label>
                     <label for="" class="fio  with_label main">Дата рождения:<input type="date" required name="bday" class="calc_select b" value="<?php echo $info['birthday']; ?>"></label>
                   <div class="calc_avto n_1">
                     <label for="" class="fio with_label">Серия паспорта:<input type="text" required name="pass" class="calc_select sp"  value="<?php echo	$info['passport'] ?>"></label>
@@ -185,7 +240,7 @@
 			<?php if (isset($info['user_surname'])){ ?>
                     <label for="" class="fio  with_label main">ФИО собственника<input type="text" required name="strax_name" class="calc_select s1" placeholder="Фамилия" value="<?php echo $info['user_surname']?>"></label>
 	                <label for="" class="fio  with_label main">&nbsp<input type="text" required name="strax_surname" class="calc_select n1" placeholder="Имя" value="<?php echo $info['user_name']?>"></label>
-	                <label for="" class="fio  with_label main">&nbsp<input type="text" required name="strax_fathername" class="calc_select f1" placeholder="Очество" value="<?php echo $info['user_fathername']?>"></label>
+	                <label for="" class="fio  with_label main">&nbsp<input type="text" required name="strax_fathername" class="calc_select f1" placeholder="Отчество" value="<?php echo $info['user_fathername']?>"></label>
                     <label for="" class="fio  with_label main">Дата рождения:<input type="date" required name="strax_bday" class="calc_select b1" value="<?php echo $info['user_birthday']; ?>"></label>
                   <div class="calc_avto n_1">
                     <label for="" class="fio with_label">Серия паспорта:<input type="text" required name="strax_pass" class="calc_select sp1"  value="<?php echo	$info['user_passport'] ?>"></label>
@@ -195,7 +250,7 @@
 			<?php }else{?>
                     <label for="" class="fio  with_label main">ФИО собственника<input type="text" required name="strax_name" class="calc_select s1" placeholder="Фамилия" ></label>
 	                <label for="" class="fio  with_label main">&nbsp<input type="text" required name="strax_surname" class="calc_select n1" placeholder="Имя"></label>
-	                <label for="" class="fio  with_label main">&nbsp<input type="text" required name="strax_fathername" class="calc_select f1" placeholder="Очество"></label>
+	                <label for="" class="fio  with_label main">&nbsp<input type="text" required name="strax_fathername" class="calc_select f1" placeholder="Отчество"></label>
                     <label for="" class="fio  with_label main">Дата рождения:<input type="date" required name="strax_bday" class="calc_select b1"></label>
                   <div class="calc_avto n_1">
                     <label for="" class="fio with_label">Серия паспорта:<input type="text" required name="strax_pass" class="calc_select sp1" ></label>
@@ -210,7 +265,7 @@
 			<div class="calc_avto sec2_calc_avto row m-auto">
 
                     <label for="" class="fio  with_label ">Марка<input type="text" name="mark" class="calc_select " placeholder="Номер авто" value="<?php echo $info['car']?>" disabled></label>
-                    <label for="" class="fio  with_label ">Модель<input type="text" name="model" class="calc_select " placeholder="Номер авто" value="<?php echo $info['carmodel']?>" disabled></label>
+                    <label for="" class="fio  with_label ">Модель<input type="text" name="model" class="calc_select " placeholder="Номер авто" value="<?php echo $info['carmodel']?>"></label>
                     <label for="" class="fio  with_label ">Год выпуска:<input type="text" name="year" class="calc_select " value="2020" disabled></label>
                   
                     <label for="" class="fio  with_label main">Номер<input type="text" required name="number" class="calc_select " placeholder="Номер авто" value="<?php echo $info['number']?>"></label>
@@ -240,7 +295,7 @@
 		                </select>
 		            </label>
                     <label for="" class="fio with_label main">&nbsp<input type="text" name="vin_num" class="calc_select "></label>
-                    <label for="" class="fio with_label main">Диагностическая карта<input type="text" class="calc_select "></label>
+                    <label for="" class="fio with_label main">Диагностическая карта<input type="text" class="calc_select " name="dig_cart"></label>
                   </div>
                   <div class="calc_avto n_1" style="justify-content: flex-start; ">
                     <label for="" class="fio with_label">Цель использования<input type="text" class="calc_select " placeholder="личная" disabled></label>
@@ -272,7 +327,7 @@
                   </div>
                   <input type="text" class="calc_select fio" name="uname[]" placeholder="Имя" value="<?php echo $info['uname'][$i] ?>">
                   <input type="text" class="calc_select fio" name="usurname[]" placeholder="Фамилия" value="<?php echo $info['usurname'][$i] ?>">
-                  <input type="text" class="calc_select fio" name="ufathername[]" placeholder="Очество" value="<?php echo $info['ufathername'][$i] ?>">
+                  <input type="text" class="calc_select fio" name="ufathername[]" placeholder="Отчество" value="<?php echo $info['ufathername'][$i] ?>">
                   <div class="calc_avto calc_avto6 w80">
                     <label for="" class="fio with_label">Дата рождения:<input type="date" name="ubday[]" class="calc_select " value="<?php echo $info['data'][$i] ?>"></label>
                     <label for="" class="fio with_label">Серия и номер ВУ:<input type="text" name="useriya[]" class="calc_select " value="<?php echo $info['uvu'][$i] ?>"></label>
@@ -285,7 +340,7 @@
 			<div class="calc_avto sec2_calc_avto row m-auto">
 	                <input type="text" name="get" hidden value="<?php echo $_GET['get']?>">
 	                <input type="text" class="calc_select fio" placeholder="Почта" name="email" style="width: 28%;">
-                    <input type="text" class="calc_select fio phone" placeholder="Номер" name="number" style="width: 28%;">
+                    <input type="text" class="calc_select fio phone" placeholder="Номер" name="phone" style="width: 28%;">
                     <div class="checker_number" data-check="send" onclick="Mass()">
                     	<img src="img/check_number.svg" alt="" class="grey">
                     </div>
@@ -298,7 +353,7 @@
         <div class="container"  style="margin-top: 40px;">
         	
         <div class="form_next" style="justify-content: flex-start;">
-                    <div class="form_btn back_btn" data-list="2" onclick="back()" style="margin-right: 20px;">Назад</div>
+                    <div class="form_btn back_btn" data-list="2" onclick="back(1)" style="margin-right: 20px;">Назад</div>
                     <button class="form_btn" data-list="2">Далее ></button>
                 </div>
         </div>
@@ -342,7 +397,10 @@
 				dp1.value = '';
 			}
 		});
-
+		function back(time){
+			window.history.go(-time);
+			console.log(-time)
+		}
 		let code;
 		phone = document.querySelector('.phone');
 		function Mass(item){	

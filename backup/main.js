@@ -10,8 +10,7 @@ list.addEventListener('click',e=>{
 			user_info.classList.add('is_active');
 			default1.removeAttribute('disabled');
 });
-if (list1) {
-	list1.addEventListener('click',e=>{
+list1.addEventListener('click',e=>{
 			e.preventDefault();
 			list1.style.display = 'none'
 			list.style.display = 'block'
@@ -19,15 +18,11 @@ if (list1) {
 			default1.setAttribute("disabled", "");
 });
 }
-}
-function back(time){
-	window.history.go(-time);
-	console.log(-time)
+function back(){
+	window.history.back();
 }
 
 function Menu(){
-	document.querySelector('.menu_wrap').classList.toggle('dn');
-	document.querySelector('.menu_wrap').style.width = '100%';
 	let menu = document.querySelectorAll('.menu')
 	for (menus of menu) {
 		menus.classList.toggle('dn');

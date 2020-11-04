@@ -137,7 +137,7 @@
 				</div>
 
 				<div class=" header_wrapper">
-					<p class=" header_link" onclick="back()"><span class="breads">Назад к оформлению</span></p>
+					<p class=" header_link" onclick="back()"><span class="breads">Назад</span></p>
 				</div>
 			</div>
 		</div>
@@ -165,7 +165,7 @@
 	                </div>
 	                <input type="submit" name="reg" class="form_btn buttons" disabled>
 	                <div class="forget">
-	                	<p class="forget_text">Уже зарегестрированы? <a href="" class="">Войти</a></p>
+	                	<p class="forget_text">Уже зарегестрированы? <a href="https://goldpreis.ru/register/login.php" class="">Войти</a></p>
 	                	<a href="" class="forget_text">Забыли пароль</a>
 	                </div>
 				</form>
